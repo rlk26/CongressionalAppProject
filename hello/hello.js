@@ -1,22 +1,14 @@
-let slider;
+
 let input;
 
 function setup() {
-createCanvas(800, 800);
+createCanvas(1200, 600);
 // fullScreen();
 
- // Create a slider and place it beneath the canvas.
-slider = createSlider(0, 255, 200);
-slider.position(10, height - 50);
+ input = createInput('');
+input.position(1000, 100);
+//myInput.size(150, 100);
 
-  // Call repaint() when the slider changes.
- slider.input(repaint);
-    
-input = createInput('');
-  input.position(0, 100);
-
-  // Call repaint() when input is detected.
-  input.input(repaint);
 }
 
 let x = 50;
@@ -28,16 +20,14 @@ function draw() {
 
   if (x > width+50) 
     x = -50;
+
+repaint();
+    
 }
 
-// Paint the background using slider's value.
 function repaint() {
-  let g = slider.value();
-  background(g);
-
-  background(200);
   let msg = input.value();
    fill(255);
-      textSize(32);   
-  text(msg, 5, 50);
+   textSize(32);   
+   text(msg, 1000, 200);
 }
