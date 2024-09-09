@@ -2,6 +2,13 @@ let area;
 let msg;
 let myArray = [];
 
+//movement variables
+let movementSpeed = 4;
+let movementTime = 0;
+let moving = true;
+let xVel = 0;
+let yVel = 0;
+
 
 function setup() {
 createCanvas(displayWidth, displayHeight); 
@@ -14,23 +21,30 @@ area.style('height', displayHeight);
 }
 
 let x = 50;
+let y = 200;
 
-function draw() {
-  background(0);
-  circle(x, 200, 100);
-  x++;
+function draw() {   
+    background(0);
+    circle(x, y, 100);
+    
+    //movement stuff
+    if(moving === true){
+        movement();
+    }
+    
+    x += xVel;
+    y += yVel;
+    
+  
 
-  if (x > width+50) 
-    x = -50;
-
-  repaint(); 
+    repaint(); 
 }
 
 function repaint() {
-   msg = area.value();
-   fill(255);
-   textSize(32);   
-   //text(msg, 1000, 200);
+    msg = area.value();
+    fill(255);
+    textSize(32);   
+    //text(msg, 1000, 200);
 }
 
 function keyPressed(){
@@ -39,5 +53,38 @@ function keyPressed(){
         myArray.push(msg);
         let words = splitTokens(msg);
         console.log(words);
+        
+        //for people that are doing the error detection can you put an if statement around this line below so that movement only runs if there's no errors thanks squad
+        moving = true;
+    }
+}
+
+//movement function
+function movement(){
+    if(moving === true && movementTime === 0){
+        xVel = 0;
+        yVel = 0;
+        if(myArray.length > 0){
+            movementTime = 40;
+            if(myArray[0] === "right"){
+                myArray.shift();
+                xVel = movementSpeed;
+            }else if(myArray[0] === "left"){
+                myArray.shift();
+                xVel = -movementSpeed;
+            }else if(myArray[0] === "up"){
+                myArray.shift();
+                yVel = -movementSpeed;
+            }else if(myArray[0] === "down"){
+                myArray.shift();
+                yVel = movementSpeed;
+            }
+        }else{
+            moving = false;
+            xVel = 0;
+            yVel = 0;
+        }
+    }else{
+        movementTime -= 1;
     }
 }
