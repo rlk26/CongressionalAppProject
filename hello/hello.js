@@ -1,5 +1,5 @@
-
 let input;
+let msg;
 
 function setup() {
 createCanvas(displayWidth, displayHeight);
@@ -10,7 +10,6 @@ input.position(1200, 0);
 input.style('width', '250px');
 input.style('height', displayHeight);
 //myInput.size(150, 100);
-
 }
 
 let x = 50;
@@ -28,8 +27,14 @@ repaint();
 }
 
 function repaint() {
-  let msg = input.value();
+   msg = input.value();
    fill(255);
    textSize(32);   
    text(msg, 1000, 200);
+}
+
+function keyPressed(){
+    if (keyCode === OPTION) { 
+        print(msg);
+    }
 }
