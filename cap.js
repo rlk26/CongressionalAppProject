@@ -1,6 +1,7 @@
 let area;
 let msg;
 let myArray = [];
+let words = [];
 
 //movement variables
 let movementSpeed = 4;
@@ -51,8 +52,13 @@ function keyPressed(){
     if (keyCode === OPTION) { 
         print(area.elt.value);
         myArray.push(msg);
-        let words = splitTokens(msg);
+        words = splitTokens(msg);
         console.log(words);
+        
+        for(let i = 0; i < words.length; i++){
+            let a = words[i].split("\"");
+            words[i] = a[1];
+        }
         
         //for people that are doing the error detection can you put an if statement around this line below so that movement only runs if there's no errors thanks squad
         moving = true;
@@ -64,19 +70,19 @@ function movement(){
     if(moving === true && movementTime === 0){
         xVel = 0;
         yVel = 0;
-        if(myArray.length > 0){
+        if(words.length > 0){
             movementTime = 40;
-            if(myArray[0] === "right"){
-                myArray.shift();
+            if(words[0] === "right"){
+                words.shift();
                 xVel = movementSpeed;
-            }else if(myArray[0] === "left"){
-                myArray.shift();
+            }else if(words[0] === "left"){
+                words.shift();
                 xVel = -movementSpeed;
-            }else if(myArray[0] === "up"){
-                myArray.shift();
+            }else if(words[0] === "up"){
+                words.shift();
                 yVel = -movementSpeed;
-            }else if(myArray[0] === "down"){
-                myArray.shift();
+            }else if(words[0] === "down"){
+                words.shift();
                 yVel = movementSpeed;
             }
         }else{
