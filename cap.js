@@ -1,5 +1,7 @@
 let area;
 let msg;
+let myArray = [];
+
 
 function setup() {
 createCanvas(displayWidth, displayHeight); 
@@ -34,5 +36,8 @@ function repaint() {
 function keyPressed(){
     if (keyCode === OPTION) { 
         print(area.elt.value);
+        myArray.push(msg);
+        let words = splitTokens(msg);
+        console.log(words);
     }
 }
