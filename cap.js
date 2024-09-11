@@ -69,6 +69,32 @@ function keyPressed(){
             moves[i] = a[1];
         }
         
+        for(let i = 0; i < words.length; i++){
+            let currentLine = words[i];
+            let parenSplit = splitTokens(currentLine, 'e');
+            console.log("SEMI SPLIT 1" + parenSplit[1]);
+            if(parenSplit[1] !== '('){
+                console.log("PARENTHESIS ERROR");
+                error = true;
+            }
+            let a = words[i].split("\"");
+            moves[i] = a[1];
+        }
+        for(let i = 0; i < words.length; i++){
+            let currentLine = words[i];
+            let quoteSplit = splitTokens(currentLine, '(');
+            console.log("QUOTE SPLIT 1" + quoteSplit[1]);
+            if(quoteSplit[1] !== '"'){
+                console.log("QUOTE ERROR");
+                error = true;
+            }
+            let a = words[i].split("\"");
+            moves[i] = a[1];
+        }
+        
+        
+    
+        
         //for people that are doing the error detection can you put an if statement around this line below so that movement only runs if there's no errors thanks squad
         
         if(error === false){
