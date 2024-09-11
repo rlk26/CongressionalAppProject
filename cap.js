@@ -69,18 +69,31 @@ function keyPressed(){
             moves[i] = a[1];
         }
         
-        for(let i = 0; i < words.length; i++){
+        /* for(let i = 0; i < words.length; i++){
             let currentLine = words[i];
             let parenSplit = splitTokens(currentLine, 'e');
-            console.log("SEMI SPLIT 1" + parenSplit[1]);
+            console.log("PARENTHESIS SPLIT 1" + parenSplit[1]);
             if(parenSplit[1] !== '('){
                 console.log("PARENTHESIS ERROR");
                 error = true;
             }
             let a = words[i].split("\"");
             moves[i] = a[1];
-        }
-        for(let i = 0; i < words.length; i++){
+        }*/
+        
+        /*for(let i = words.length; i > 0; i--){
+            let currentLine = words[i];
+            let parenSplitEnd = splitTokens(currentLine, ';');
+            console.log("PARENTHESIS SPLIT 2" + parenSplitEnd[1]);
+            if(parenSplitEnd[1] !== '('){
+                console.log("PARENTHESIS ERROR");
+                error = true;
+            }
+            let a = words[i].split("\"");
+            moves[i] = a[1];
+        }*/
+        
+        /*for(let i = 0; i < words.length; i++){
             let currentLine = words[i];
             let quoteSplit = splitTokens(currentLine, '(');
             console.log("QUOTE SPLIT 1" + quoteSplit[1]);
@@ -90,7 +103,7 @@ function keyPressed(){
             }
             let a = words[i].split("\"");
             moves[i] = a[1];
-        }
+        }*/
         
         
     
