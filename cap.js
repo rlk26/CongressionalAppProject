@@ -3,6 +3,7 @@ let msg;
 let myArray = [];
 let words = [];
 let moves = [];
+let error = false;
 
 //movement variables
 let movementSpeed = 4;
@@ -62,15 +63,18 @@ function keyPressed(){
             console.log("SEMI SPLIT 1" + semiSplit[1]);
             if(semiSplit[1] !== ';'){
                 console.log("SEMI COLON ERROR");
-                break; 
+                error = true;
             }
             let a = words[i].split("\"");
             moves[i] = a[1];
         }
         
         //for people that are doing the error detection can you put an if statement around this line below so that movement only runs if there's no errors thanks squad
-        moving = true;
         
+        if(error === false){
+           moving = true;
+        }
+    
         words = [];
     }
 }
