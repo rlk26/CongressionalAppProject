@@ -52,6 +52,7 @@ function repaint() {
 
 function keyPressed(){
     if (keyCode === OPTION) { 
+        error = false;
         print(area.elt.value);
         myArray.push(msg);
         words = splitTokens(msg);
@@ -59,9 +60,8 @@ function keyPressed(){
         
         for(let i = 0; i < words.length; i++){
             let currentLine = words[i];
-            let semiSplit = splitTokens(currentLine, ')');
-            console.log("SEMI SPLIT 1" + semiSplit[1]);
-            if(semiSplit[1] !== ';'){
+            let s = currentLine.substring(currentLine.length-1, currentLine.length);
+            if(s !== ';'){
                 console.log("SEMI COLON ERROR");
                 error = true;
             }
@@ -69,30 +69,23 @@ function keyPressed(){
             moves[i] = a[1];
         }
         
-        /* for(let i = 0; i < words.length; i++){
+        if(!error){
+        for(let i = 0; i < words.length; i++){
             let currentLine = words[i];
-            let parenSplit = splitTokens(currentLine, 'e');
-            console.log("PARENTHESIS SPLIT 1" + parenSplit[1]);
-            if(parenSplit[1] !== '('){
+            let lParen = 0;
+            let rParen = 0;
+            for(let i = 0; i<currentLine.length; i++){
+                if(currentLine.substring(i-1, i)==="(") lParen++;
+                if(currentLine.substring(i-1, i)===")") rParen++;
+            }         
+            if(lParen !== 1 || rParen !== 1){
                 console.log("PARENTHESIS ERROR");
                 error = true;
-            }
-            let a = words[i].split("\"");
-            moves[i] = a[1];
-        }*/
-        
-        /*for(let i = words.length; i > 0; i--){
-            let currentLine = words[i];
-            let parenSplitEnd = splitTokens(currentLine, ';');
-            console.log("PARENTHESIS SPLIT 2" + parenSplitEnd[1]);
-            if(parenSplitEnd[1] !== '('){
-                console.log("PARENTHESIS ERROR");
-                error = true;
-            }
-            let a = words[i].split("\"");
-            moves[i] = a[1];
-        }*/
-        
+            } 
+
+        }
+        }
+
         /*for(let i = 0; i < words.length; i++){
             let currentLine = words[i];
             let quoteSplit = splitTokens(currentLine, '(');
