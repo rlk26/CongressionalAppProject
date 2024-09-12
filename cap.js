@@ -85,18 +85,27 @@ function keyPressed(){
 
         }
         }
-
-        /*for(let i = 0; i < words.length; i++){
+        
+         
+        if(!error){
+        for(let i = 0; i < words.length; i++){
             let currentLine = words[i];
-            let quoteSplit = splitTokens(currentLine, '(');
-            console.log("QUOTE SPLIT 1" + quoteSplit[1]);
-            if(quoteSplit[1] !== '"'){
+            let quote = 0;
+            for(let i = 0; i<currentLine.length; i++){
+                if(currentLine.substring(i-1, i)=== '"') quote++;
+            }         
+            if(quote !== 2){
                 console.log("QUOTE ERROR");
                 error = true;
-            }
-            let a = words[i].split("\"");
-            moves[i] = a[1];
-        }*/
+            } 
+
+        }
+        }
+        
+
+
+        
+    
         
         
     
