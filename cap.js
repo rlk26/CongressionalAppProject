@@ -12,6 +12,11 @@ let moving = true;
 let xVel = 0;
 let yVel = 0;
 
+var gif_loadImg, gif_createImg;
+
+function preload(){
+    gif_createImg = createImg('testGif.gif');
+}
 
 function setup() {
 createCanvas(displayWidth, displayHeight); 
@@ -41,6 +46,8 @@ function draw() {
   
 
     repaint(); 
+    
+    gif_createImg.position('10', '20');
 }
 
 function repaint() {
