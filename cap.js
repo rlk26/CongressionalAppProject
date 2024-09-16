@@ -17,13 +17,17 @@ let pos;
 let level1Grid;
 
 var gif_loadImg, gif_createImg;
+//let font;
 
 function preload(){
     gif_createImg = createImg('testGif.gif');
+    //font = loadFont('text.ttf');
 }
 
 function setup() {
     createCanvas(displayWidth, displayHeight); 
+    
+    //textFont(font);
     
     area = createElement('textarea');
     area.position(width*3/4,0);
