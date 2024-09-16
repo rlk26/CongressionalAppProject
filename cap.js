@@ -14,10 +14,12 @@ let moving = true;
 let vel;
 let pos;
 
+let gameState = 0;
+
 let level1Grid;
 
 var gif_loadImg, gif_createImg;
-//let font;
+let font;
 
 function preload(){
     gif_createImg = createImg('testGif.gif');
@@ -44,29 +46,37 @@ function setup() {
 
 function draw() {   
     background(0);
- 
-    fill(255);
-    circle(pos.x, pos.y, 100);
     
-    //movement stuff
-    if(moving === true){
-        movement();
+    if(gameState === 0){
+        background (100);
+        rectMode(CENTER);
+        rect(width/2, height/2, width/6, height/8);
+        textSize(height/12);
+        textAlign(CENTER, CENTER);
+        text("start", width/2, height/2);
+    }else if (gameState === 1){
+        fill(255);
+        circle(pos.x, pos.y, 100);
+    
+        //movement stuff
+        if(moving === true){
+            movement();
+        }
+    
+        pos.add(vel);
+    
+
+
+        repaint(); 
+    
+        gif_createImg.position('10', '20');
+    
+        if(error === true){
+            text(errorMsg, 100, 50);
+        }
+    
+        level1Grid.displayGrid();
     }
-    
-    pos.add(vel);
-    
-
-
-    repaint(); 
-    
-    gif_createImg.position('10', '20');
-    
-    if(error === true){
-        text(errorMsg, 100, 50);
-    }
-    
-    level1Grid.displayGrid();
-
 }
 
 function repaint() {
@@ -150,6 +160,13 @@ function keyPressed(){
         }
     
         words = [];
+    }
+}
+
+function mouseClicked(){
+    if (gameState === 0 && mouseX > width/2 - width/12 && mouseX < width/2 + width/12 && mouseY > height/2 - height/16 && mouseY < height/2 + height/16){
+        gameState += 1;
+        textAlign(LEFT, TOP);
     }
 }
 
