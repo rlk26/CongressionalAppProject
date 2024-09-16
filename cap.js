@@ -4,6 +4,7 @@ let myArray = [];
 let words = [];
 let moves = [];
 let error = false;
+let errorMsg = "";
 
 //movement variables
 let movementSpeed = 4;
@@ -48,6 +49,10 @@ function draw() {
     repaint(); 
     
     gif_createImg.position('10', '20');
+    
+    if(error === true){
+        text(errorMsg, 100, 50);
+    }
 }
 
 function repaint() {
@@ -74,6 +79,7 @@ function keyPressed(){
             let s = currentLine.substring(currentLine.length-1, currentLine.length);
             if(s !== ';'){
                 console.log("SEMI COLON ERROR");
+                errorMsg = "SEMI COLON ERROR";
                 error = true;
             }
             let a = words[i].split("\"");
@@ -91,6 +97,7 @@ function keyPressed(){
             }         
             if(lParen !== 1 || rParen !== 1){
                 console.log("PARENTHESIS ERROR");
+                errorMsg = "PARENTHESIS ERROR";
                 error = true;
             } 
 
@@ -107,6 +114,7 @@ function keyPressed(){
             }         
             if(quote !== 2){
                 console.log("QUOTE ERROR");
+                errorMsg = "QUOTE ERROR";
                 error = true;
             } 
 
