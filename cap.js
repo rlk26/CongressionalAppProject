@@ -9,8 +9,8 @@ let error = false;
 let movementSpeed = 4;
 let movementTime = 0;
 let moving = true;
-let xVel = 0;
-let yVel = 0;
+let vel;
+let pos;
 
 var gif_loadImg, gif_createImg;
 
@@ -19,29 +19,29 @@ function preload(){
 }
 
 function setup() {
-createCanvas(displayWidth, displayHeight); 
+    createCanvas(displayWidth, displayHeight); 
     
-area = createElement('textarea');
-area.position(width*3/4,0);
-area.elt.placeholder = 'CODE HERE OR ELSE';
-area.style('width', '400px');
-area.style('height', displayHeight);
+    area = createElement('textarea');
+    area.position(width*3/4,0);
+    area.elt.placeholder = 'CODE HERE OR ELSE';
+    area.style('width', '400px');
+    area.style('height', displayHeight);
+    
+    vel = createVector(0,0);
+    pos = createVector(50,200);
 }
 
-let x = 50;
-let y = 200;
 
 function draw() {   
     background(0);
-    circle(x, y, 100);
+    circle(pos.x, pos.y, 100);
     
     //movement stuff
     if(moving === true){
         movement();
     }
     
-    x += xVel;
-    y += yVel;
+    pos.add(vel);
     
   
 
@@ -64,6 +64,10 @@ function keyPressed(){
         myArray.push(msg);
         words = splitTokens(msg);
         console.log(words);
+        
+        if(pos.x !== 50 || pos.y !== 200){
+            pos = createVector(50,200);
+        }
         
         for(let i = 0; i < words.length; i++){
             let currentLine = words[i];
@@ -130,27 +134,27 @@ function keyPressed(){
 //movement function
 function movement(){
     if(moving === true && movementTime === 0){
-        xVel = 0;
-        yVel = 0;
+        vel.x = 0;
+        vel.y = 0;
         if(moves.length > 0){
             movementTime = 40;
             if(moves[0] === "right"){
                 moves.shift();
-                xVel = movementSpeed;
+                vel.x = movementSpeed;
             }else if(moves[0] === "left"){
                 moves.shift();
-                xVel = -movementSpeed;
+                vel.x = -movementSpeed;
             }else if(moves[0] === "up"){
                 moves.shift();
-                yVel = -movementSpeed;
+                vel.y = -movementSpeed;
             }else if(moves[0] === "down"){
                 moves.shift();
-                yVel = movementSpeed;
+                vel.y = movementSpeed;
             }
         }else{
             moving = false;
-            xVel = 0;
-            yVel = 0;
+            vel.x = 0;
+            vel.y = 0;
         }
     }else{
         movementTime -= 1;
