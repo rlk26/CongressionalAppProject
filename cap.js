@@ -6,12 +6,15 @@ let moves = [];
 let error = false;
 let errorMsg = "";
 
+
 //movement variables
-let movementSpeed = 4;
+let movementSpeed = 5;
 let movementTime = 0;
 let moving = true;
 let vel;
 let pos;
+
+let level1Grid;
 
 var gif_loadImg, gif_createImg;
 
@@ -30,11 +33,15 @@ function setup() {
     
     vel = createVector(0,0);
     pos = createVector(50,200);
+    
+    level1Grid = new Grid(50, 200);
 }
 
 
 function draw() {   
     background(0);
+ 
+    fill(255);
     circle(pos.x, pos.y, 100);
     
     //movement stuff
@@ -44,7 +51,7 @@ function draw() {
     
     pos.add(vel);
     
-  
+
 
     repaint(); 
     
@@ -53,6 +60,9 @@ function draw() {
     if(error === true){
         text(errorMsg, 100, 50);
     }
+    
+    level1Grid.displayGrid();
+
 }
 
 function repaint() {
@@ -168,3 +178,4 @@ function movement(){
         movementTime -= 1;
     }
 }
+
