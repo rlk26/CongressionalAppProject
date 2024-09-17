@@ -40,12 +40,14 @@ function setup() {
     vel = createVector(0,0);
     pos = createVector(50,200);
     
-    level1Grid = new Grid(50, 200);
+    level1Grid = new Grid(displayWidth/2, displayWidth/4);
 }
 
 
 function draw() {   
     background(0);
+    
+    level1Grid.displayGrid();
     
     if(gameState === 0){
         background (100);
@@ -75,7 +77,7 @@ function draw() {
             text(errorMsg, 100, 50);
         }
     
-        level1Grid.displayGrid();
+      
     }
 }
 

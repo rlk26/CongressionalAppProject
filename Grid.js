@@ -14,8 +14,8 @@
 
     displayGrid(){
     this.gridArray = [];
-    for(let x = this.g; x<displayWidth/2; x+=this.gridSize){
-    for(let y = this.b; y<displayHeight; y+=this.gridSize){
+    for(let x = 50; x<displayWidth/2; x+=this.gridSize){
+    for(let y = 200; y<displayHeight; y+=this.gridSize){
          if (!this.gridArray[x]) {
                     this.gridArray[x] = [];
                 }
