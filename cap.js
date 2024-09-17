@@ -5,6 +5,8 @@ let words = [];
 let moves = [];
 let error = false;
 let errorMsg = "";
+let stars = false;
+let lineGoal = 4;
 
 
 //movement variables
@@ -89,12 +91,18 @@ function repaint() {
 }
 
 function keyPressed(){
-    if (keyCode === OPTION) { 
+    if (keyCode === OPTION) {
+        stars = false;
         error = false;
         print(area.elt.value);
         myArray.push(msg);
         words = splitTokens(msg);
         console.log(words);
+        
+        if(words.length < lineGoal){
+            stars = true;
+            console.log("star earned");
+        }
         
         if(pos.x !== 50 || pos.y !== 200){
             pos = createVector(50,200);

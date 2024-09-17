@@ -23,7 +23,7 @@
         
         //this.gridArray[x] =[];
        // this.gridArray[y] =[];
-        console.log(this.gridArray);
+        //console.log(this.gridArray);
          fill(255,0,0);
     circle(x, y, 50); 
     }
