@@ -49,7 +49,7 @@ function setup() {
 function draw() {   
     background(0);
     
-    level1Grid.displayGrid();
+     
     
     if(gameState === 0){
         background (100);
@@ -59,6 +59,7 @@ function draw() {
         textAlign(CENTER, CENTER);
         text("start", displayWidth/2, displayHeight/2);
     }else if (gameState === 1){
+        level1Grid.displayGrid();
         fill(255);
         circle(pos.x, pos.y, displayWidth/10);
     
@@ -69,7 +70,7 @@ function draw() {
     
         pos.add(vel);
     
-
+       
 
         repaint(); 
     
