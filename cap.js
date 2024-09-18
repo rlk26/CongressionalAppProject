@@ -20,16 +20,24 @@ let gameState = 0;
 
 let level1Grid;
 
+var leftWalkingGIF, rightWalkingGIF, upWalkingGIF, downWalkingGIF, placeHolderGIF;
 var gif_loadImg, gif_createImg;
 let font;
 
 function preload(){
-    gif_createImg = createImg('testGif.gif');
+    leftWalkingGIF = loadImage('leftwalking.gif');
+    rightWalkingGIF = loadImage('rightwalking.gif');
+    upWalkingGIF = loadImage('rightwalking.gif');
+    downWalkingGIF = loadImage('frontwalking.gif');
+    placeHolderGIF = loadImage('leftwalking.gif');
+
     //font = loadFont('text.ttf');
 }
 
 function setup() {
-    createCanvas(displayWidth, displayHeight); 
+    createCanvas(displayWidth, displayHeight);
+    
+    imageMode(CENTER);
     
     //textFont(font);
     
@@ -43,12 +51,16 @@ function setup() {
     pos = createVector(displayWidth/20,displayHeight/8);
     
     level1Grid = new Grid(displayWidth/2, displayWidth/4);
+    
+    leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
+    rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
+    upWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
+    downWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
 }
 
 
 function draw() {   
     background(0);
-    
      
     
     if(gameState === 0){
@@ -61,7 +73,8 @@ function draw() {
     }else if (gameState === 1){
         level1Grid.displayGrid();
         fill(255);
-        circle(pos.x, pos.y, displayWidth/10);
+        image(placeHolderGIF, pos.x, pos.y);
+        //circle(pos.x, pos.y, displayWidth/10);
     
         //movement stuff
         if(moving === true){
@@ -74,7 +87,7 @@ function draw() {
 
         repaint(); 
     
-        gif_createImg.position('10', '20');
+        //gif_createImg.position('10', '20');
     
         if(error === true){
             text(errorMsg, displayWidth/10, displayHeight/30);
@@ -156,12 +169,6 @@ function keyPressed(){
         }
         }
         
-
-
-        
-    
-        
-        
     
         
         //for people that are doing the error detection can you put an if statement around this line below so that movement only runs if there's no errors thanks squad
@@ -189,20 +196,26 @@ function movement(){
         if(moves.length > 0){
             movementTime = 40;
             if(moves[0] === "right"){
+                placeHolderGIF = rightWalkingGIF;
                 moves.shift();
                 vel.x = movementSpeed;
             }else if(moves[0] === "left"){
+                placeHolderGIF = leftWalkingGIF;
+                //image(leftWalkingGIF, pos.x, pos.y);
                 moves.shift();
                 vel.x = -movementSpeed;
             }else if(moves[0] === "up"){
+                placeHolderGIF = upWalkingGIF;
                 moves.shift();
                 vel.y = -movementSpeed;
             }else if(moves[0] === "down"){
+                placeHolderGIF = downWalkingGIF;
                 moves.shift();
                 vel.y = movementSpeed;
             }
         }else{
             moving = false;
+            placeHolderGIF = rightWalkingGIF;
             vel.x = 0;
             vel.y = 0;
         }
