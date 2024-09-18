@@ -10,7 +10,7 @@ let lineGoal = 4;
 
 
 //movement variables
-let movementSpeed = 5;
+let movementSpeed = 3;
 let movementTime = 0;
 let moving = true;
 let vel;
@@ -34,13 +34,13 @@ function setup() {
     //textFont(font);
     
     area = createElement('textarea');
-    area.position(width*3/4,0);
+    area.position(displayWidth*3/4,0);
     area.elt.placeholder = 'CODE HERE OR ELSE';
     area.style('width', '400px');
     area.style('height', displayHeight);
     
     vel = createVector(0,0);
-    pos = createVector(50,200);
+    pos = createVector(displayWidth/20,displayHeight/8);
     
     level1Grid = new Grid(displayWidth/2, displayWidth/4);
 }
@@ -54,13 +54,13 @@ function draw() {
     if(gameState === 0){
         background (100);
         rectMode(CENTER);
-        rect(width/2, height/2, width/6, height/8);
-        textSize(height/12);
+        rect(displayWidth/2, displayHeight/2, displayWidth/6, displayHeight/8);
+        textSize(displayHeight/12);
         textAlign(CENTER, CENTER);
-        text("start", width/2, height/2);
+        text("start", displayWidth/2, displayHeight/2);
     }else if (gameState === 1){
         fill(255);
-        circle(pos.x, pos.y, 100);
+        circle(pos.x, pos.y, displayWidth/10);
     
         //movement stuff
         if(moving === true){
@@ -76,7 +76,7 @@ function draw() {
         gif_createImg.position('10', '20');
     
         if(error === true){
-            text(errorMsg, 100, 50);
+            text(errorMsg, displayWidth/10, displayHeight/30);
         }
     
       
@@ -86,7 +86,7 @@ function draw() {
 function repaint() {
     msg = area.value();
     fill(255);
-    textSize(32);   
+    textSize(displayWidth/30);   
     //text(msg, 1000, 200);
 }
 
@@ -104,8 +104,8 @@ function keyPressed(){
             console.log("star earned");
         }
         
-        if(pos.x !== 50 || pos.y !== 200){
-            pos = createVector(50,200);
+        if(pos.x !== displayWidth/20 || pos.y !== displayHeight/8){
+            pos = createVector(displayWidth/20,displayHeight/8);
         }
         
         for(let i = 0; i < words.length; i++){
@@ -174,7 +174,7 @@ function keyPressed(){
 }
 
 function mouseClicked(){
-    if (gameState === 0 && mouseX > width/2 - width/12 && mouseX < width/2 + width/12 && mouseY > height/2 - height/16 && mouseY < height/2 + height/16){
+    if (gameState === 0 && mouseX > displayWidth/2 - displayWidth/12 && mouseX < displayWidth/2 + displayWidth/12 && mouseY > displayHeight/2 - displayHeight/16 && mouseY < displayHeight/2 + displayHeight/16){
         gameState += 1;
         textAlign(LEFT, TOP);
     }
