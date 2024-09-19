@@ -63,7 +63,6 @@ function setup() {
 
 function draw() {   
     background(0);
-    removeArray = []; 
     
     if(gameState === 0){
         background (100);
@@ -74,9 +73,11 @@ function draw() {
         fill(0);
         text("start", displayWidth/2, displayHeight/2);
     }else if (gameState === 1){
-       
         fill(255);
+        
+        removeArray = []; 
         //circle(pos.x, pos.y, displayWidth/10);
+         level1Grid.removeArray = removeArray;
     for (let x = 0; x < level1Grid.gridArray.length; x++) {
     for (let y = 0; y < level1Grid.gridArray[x].length; y++) {
            //skipping row one 
@@ -84,7 +85,8 @@ function draw() {
                 removeArray.push(new p5.Vector(x, y));
             }
         }
-    }   level1Grid.removeArray = removeArray;
+    }  
+        level1Grid.removeArray = removeArray;
         level1Grid.displayGrid();
         image(placeHolderGIF, pos.x, pos.y);
     }      
