@@ -1,41 +1,52 @@
  class Grid{
-
-
     constructor(g, b, removeArray){
         this.g = g;
         this.b = b;
         this.gridSize = displayHeight/8;
         this.gridArray = [];
         this.removeArray =removeArray || [];
-        console.log(this.gridArray);
-        
-    
-        
+        console.log(this.gridArray); 
     }
      
     displayGrid() {
-    this.gridArray = [];
-    let cols = Math.floor((displayWidth / 2 - displayWidth / 20) / this.gridSize);
-    let rows = Math.floor((displayHeight - displayHeight / 8) / this.gridSize);
+        this.gridArray = [];
+        let cols = Math.floor((displayWidth / 2 - displayWidth / 20) / this.gridSize);
+        let rows = Math.floor((displayHeight - displayHeight / 8) / this.gridSize);
     
-    for (let x = 0; x < cols; x++) {
-        this.gridArray[x] = [];
-        for (let y = 0; y < rows; y++) {
-            this.gridArray[x][y] = true;
-        }
-    }
-    this.removeElements();
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-            if (this.gridArray[i][j] === true) {
-                let posX = displayWidth / 20 + i * this.gridSize;
-                let posY = displayHeight / 8 + j * this.gridSize;
-                fill(255, 0, 0);
-                circle(posX, posY, displayWidth / 30);
+        for (let x = 0; x < cols; x++) {
+            this.gridArray[x] = [];
+            for (let y = 0; y < rows; y++) {
+                this.gridArray[x][y] = true;
             }
         }
-    }
+        this.removeElements();
+        for (let i = 0; i < cols; i++) {
+            for (let j = 0; j < rows; j++) {
+                if (this.gridArray[i][j] === true) {
+                    let posX = displayWidth / 20 + i * this.gridSize;
+                    let posY = displayHeight / 8 + j * this.gridSize;
+                    fill(255, 0, 0);
+                    circle(posX, posY, displayWidth / 30);
+                }
+            }
+        }
+    }    
+     
+     removeElements(){
+        for (let i = 0; i < this.removeArray.length; i++) {
+            let removing = this.removeArray[i];
+            //converting to grid positions
+            let x = removing.x;
+            let y = removing.y;
+            if (this.gridArray[x] &&this.gridArray[x][y] === true){
+                 this.gridArray[x][y] = null;
+            }
+                
+        }
+    
+     }
 }
+
     //old display grid function
 
    /* displayGrid(){
@@ -64,19 +75,3 @@
             }
     }
     }*/
-     
-     
-     removeElements(){
-            for (let i = 0; i < this.removeArray.length; i++) {
-            let removing = this.removeArray[i];
-            //converting to grid positions
-            let x = removing.x;
-            let y = removing.y;
-             if (this.gridArray[x] &&this.gridArray[x][y] === true){
-                 this.gridArray[x][y] = null;
-             }
-                
-     }
-    
-}
-}

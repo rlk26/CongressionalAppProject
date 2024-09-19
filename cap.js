@@ -8,9 +8,8 @@ let errorMsg = "";
 let stars = false;
 let lineGoal = 4;
 
-
 //movement variables
-let movementSpeed = 3;
+let movementSpeed = 2.85;
 let movementTime = 0;
 let moving = true;
 let vel;
@@ -51,8 +50,6 @@ function setup() {
     pos = createVector(displayWidth/20,displayHeight/8);
 
     level1Grid = new Grid(displayWidth/2, displayHeight/4, []);
-
-
     
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
@@ -72,7 +69,7 @@ function draw() {
         textAlign(CENTER, CENTER);
         fill(0);
         text("start", displayWidth/2, displayHeight/2);
-    }else if (gameState === 1){
+    } else if (gameState === 1){
         fill(255);
         
         removeArray = []; 
