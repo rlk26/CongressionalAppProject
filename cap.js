@@ -49,8 +49,10 @@ function setup() {
     
     vel = createVector(0,0);
     pos = createVector(displayWidth/20,displayHeight/8);
-    
-    level1Grid = new Grid(displayWidth/2, displayWidth/4);
+
+    level1Grid = new Grid(displayWidth/2, displayHeight/4, []);
+
+
     
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
@@ -61,7 +63,7 @@ function setup() {
 
 function draw() {   
     background(0);
-     
+    removeArray = []; 
     
     if(gameState === 0){
         background (100);
@@ -69,12 +71,24 @@ function draw() {
         rect(displayWidth/2, displayHeight/2, displayWidth/6, displayHeight/8);
         textSize(displayHeight/12);
         textAlign(CENTER, CENTER);
+        fill(0);
         text("start", displayWidth/2, displayHeight/2);
     }else if (gameState === 1){
-        level1Grid.displayGrid();
+       
         fill(255);
-        image(placeHolderGIF, pos.x, pos.y);
         //circle(pos.x, pos.y, displayWidth/10);
+    for (let x = 0; x < level1Grid.gridArray.length; x++) {
+    for (let y = 0; y < level1Grid.gridArray[x].length; y++) {
+           //skipping row one 
+            if (y !== 0) {     
+                removeArray.push(new p5.Vector(x, y));
+            }
+        }
+    }   level1Grid.removeArray = removeArray;
+        level1Grid.displayGrid();
+        image(placeHolderGIF, pos.x, pos.y);
+    }      
+
     
         //movement stuff
         if(moving === true){
@@ -95,7 +109,9 @@ function draw() {
     
       
     }
-}
+
+    
+
 
 function repaint() {
     msg = area.value();
