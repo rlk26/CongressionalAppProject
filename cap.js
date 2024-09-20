@@ -14,10 +14,13 @@ let movementTime = 0;
 let moving = true;
 let vel;
 let pos;
+let x = 0;
+let y = 0;
 
 let gameState = 0;
 
 let level1Grid;
+let level1Goal;
 
 var leftWalkingGIF, rightWalkingGIF, upWalkingGIF, downWalkingGIF, placeHolderGIF;
 var gif_loadImg, gif_createImg;
@@ -50,6 +53,7 @@ function setup() {
     pos = createVector(displayWidth/20,displayHeight/8);
 
     level1Grid = new Grid(displayWidth/2, displayHeight/4, []);
+    level1Goal = createVector(4, 0);
     
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
@@ -58,7 +62,8 @@ function setup() {
 }
 
 
-function draw() {   
+function draw() {
+    //console.log(x + " " + y);
     background(0);
     
     if(gameState === 0){
@@ -72,6 +77,12 @@ function draw() {
     } else if (gameState === 1){
         fill(255);
         
+        if(x === level1Goal.x && y === level1Goal.y && moving === false){
+           gameState += 1;
+            console.log("yay");
+           }
+           
+
         removeArray = []; 
         //circle(pos.x, pos.y, displayWidth/10);
          level1Grid.removeArray = removeArray;
@@ -86,7 +97,9 @@ function draw() {
         level1Grid.removeArray = removeArray;
         level1Grid.displayGrid();
         image(placeHolderGIF, pos.x, pos.y);
-    }      
+    }else if (gameState === 2){
+        text("you did it", displayWidth/2, displayHeight/2);
+    }
 
     
         //movement stuff
@@ -214,19 +227,23 @@ function movement(){
                 placeHolderGIF = rightWalkingGIF;
                 moves.shift();
                 vel.x = movementSpeed;
+                x += 1;
             }else if(moves[0] === "left"){
                 placeHolderGIF = leftWalkingGIF;
                 //image(leftWalkingGIF, pos.x, pos.y);
                 moves.shift();
                 vel.x = -movementSpeed;
+                x -= 1;
             }else if(moves[0] === "up"){
                 placeHolderGIF = upWalkingGIF;
                 moves.shift();
                 vel.y = -movementSpeed;
+                y -= 1;
             }else if(moves[0] === "down"){
                 placeHolderGIF = downWalkingGIF;
                 moves.shift();
                 vel.y = movementSpeed;
+                y += 1;
             }
         }else{
             moving = false;
