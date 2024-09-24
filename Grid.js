@@ -45,6 +45,15 @@
         }
     
      }
+     
+    /*function canYouMove(direction: string, currentPos: p5.Vector) boolean {
+         if(direction==="up"){
+             //check if there is a value above the current Pos.y
+             if(this.gridArray[currentPos.x][currentPos.y-1] !== null){
+                 return true;
+             } else return false;
+         }
+     }*/
 }
 
     //old display grid function

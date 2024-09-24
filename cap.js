@@ -24,6 +24,7 @@ let level1Goal;
 
 var leftWalkingGIF, rightWalkingGIF, upWalkingGIF, downWalkingGIF, placeHolderGIF;
 var gif_loadImg, gif_createImg;
+var moonbg;
 let font;
 
 function preload(){
@@ -32,6 +33,8 @@ function preload(){
     upWalkingGIF = loadImage('rightwalking.gif');
     downWalkingGIF = loadImage('frontwalking.gif');
     placeHolderGIF = loadImage('leftwalking.gif');
+    
+    moonbg = loadImage('moonbg.png');
 
     //font = loadFont('text.ttf');
 }
@@ -40,6 +43,7 @@ function setup() {
     createCanvas(displayWidth, displayHeight);
     
     imageMode(CENTER);
+    //image(moonbg,displayWidth/2, displayHeight/2);
     
     //textFont(font);
     
@@ -59,12 +63,13 @@ function setup() {
     rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     upWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     downWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
+    moonbg.resize(displayWidth*.7, displayHeight);
 }
 
 
 function draw() {
     //console.log(x + " " + y);
-    background(0);
+    image(moonbg,displayWidth/2, displayHeight/2);
     
     if(gameState === 0){
         background (100);
@@ -79,25 +84,24 @@ function draw() {
         
         if(x === level1Goal.x && y === level1Goal.y && moving === false){
            gameState += 1;
-            console.log("yay");
+            console.log("Goal reached.");
            }
            
-
         removeArray = []; 
-        //circle(pos.x, pos.y, displayWidth/10);
-         level1Grid.removeArray = removeArray;
-    for (let x = 0; x < level1Grid.gridArray.length; x++) {
-    for (let y = 0; y < level1Grid.gridArray[x].length; y++) {
-           //skipping row one 
-            if (y !== 0) {     
-                removeArray.push(new p5.Vector(x, y));
-            }
-        }
-    }  
         level1Grid.removeArray = removeArray;
-        level1Grid.displayGrid();
-        image(placeHolderGIF, pos.x, pos.y);
-    }else if (gameState === 2){
+        
+        for (let x = 0; x < level1Grid.gridArray.length; x++) {
+            for (let y = 0; y < level1Grid.gridArray[x].length; y++) {
+                //skipping row one 
+                if (y !== 0) {     
+                    removeArray.push(new p5.Vector(x, y));
+                }
+            }
+        }  
+            level1Grid.removeArray = removeArray;
+            level1Grid.displayGrid();
+            image(placeHolderGIF, pos.x, pos.y);
+        }   else if (gameState === 2){
         text("you did it", displayWidth/2, displayHeight/2);
     }
 
@@ -108,12 +112,8 @@ function draw() {
         }
     
         pos.add(vel);
-    
-       
 
         repaint(); 
-    
-        //gif_createImg.position('10', '20');
     
         if(error === true){
             text(errorMsg, displayWidth/10, displayHeight/30);
@@ -129,7 +129,6 @@ function repaint() {
     msg = area.value();
     fill(255);
     textSize(displayWidth/30);   
-    //text(msg, 1000, 200);
 }
 
 function keyPressed(){
@@ -154,8 +153,8 @@ function keyPressed(){
             let currentLine = words[i];
             let s = currentLine.substring(currentLine.length-1, currentLine.length);
             if(s !== ';'){
-                console.log("SEMI COLON ERROR");
                 errorMsg = "SEMI COLON ERROR";
+                console.log(errorMsg);
                 error = true;
             }
             let a = words[i].split("\"");
@@ -163,52 +162,48 @@ function keyPressed(){
         }
         
         if(!error){
-        for(let i = 0; i < words.length; i++){
-            let currentLine = words[i];
-            let lParen = 0;
-            let rParen = 0;
-            for(let i = 0; i<currentLine.length; i++){
-                if(currentLine.substring(i-1, i)==="(") lParen++;
-                if(currentLine.substring(i-1, i)===")") rParen++;
-            }         
-            if(lParen !== 1 || rParen !== 1){
-                console.log("PARENTHESIS ERROR");
-                errorMsg = "PARENTHESIS ERROR";
-                error = true;
-            } 
-
-        }
+            for(let i = 0; i < words.length; i++){
+                let currentLine = words[i];
+                let lParen = 0;
+                let rParen = 0;
+                for(let i = 0; i<currentLine.length; i++){
+                    if(currentLine.substring(i-1, i)==="(") lParen++;
+                    if(currentLine.substring(i-1, i)===")") rParen++;
+                }         
+                if(lParen !== 1 || rParen !== 1){
+                    errorMsg = "PARENTHESIS ERROR";
+                    console.log(errorMsg);
+                    error = true;
+                } 
+            }
         }
         
          
         if(!error){
-        for(let i = 0; i < words.length; i++){
-            let currentLine = words[i];
-            let quote = 0;
-            for(let i = 0; i<currentLine.length; i++){
-                if(currentLine.substring(i-1, i)=== '"') quote++;
-            }         
-            if(quote !== 2){
-                console.log("QUOTE ERROR");
-                errorMsg = "QUOTE ERROR";
-                error = true;
-            } 
-
+            for(let i = 0; i < words.length; i++){
+                let currentLine = words[i];
+                let quote = 0;
+                for(let i = 0; i<currentLine.length; i++){
+                    if(currentLine.substring(i-1, i)=== '"') quote++;
+                }         
+                if(quote !== 2){
+                    errorMsg = "QUOTE ERROR";
+                      console.log(errorMsg);
+                    error = true;
+                } 
+            }
         }
-        }
-        
-    
-        
-        //for people that are doing the error detection can you put an if statement around this line below so that movement only runs if there's no errors thanks squad
         
         if(error === false){
            moving = true;
         }
     
+        //reset code
         words = [];
     }
 }
 
+//button check
 function mouseClicked(){
     if (gameState === 0 && mouseX > displayWidth/2 - displayWidth/12 && mouseX < displayWidth/2 + displayWidth/12 && mouseY > displayHeight/2 - displayHeight/16 && mouseY < displayHeight/2 + displayHeight/16){
         gameState += 1;
@@ -226,24 +221,32 @@ function movement(){
             if(moves[0] === "right"){
                 placeHolderGIF = rightWalkingGIF;
                 moves.shift();
-                vel.x = movementSpeed;
-                x += 1;
+                if(canYouMove("right", createVector(x,y), level1Grid)){ //switch for gamestates
+                    vel.x = movementSpeed;
+                    x += 1;
+                } else console.log("cannot move right");
             }else if(moves[0] === "left"){
                 placeHolderGIF = leftWalkingGIF;
                 //image(leftWalkingGIF, pos.x, pos.y);
                 moves.shift();
-                vel.x = -movementSpeed;
-                x -= 1;
+                if(canYouMove("left", createVector(x,y), level1Grid)){
+                    vel.x = -movementSpeed;
+                    x -= 1;
+                } else console.log("cannot move left");
             }else if(moves[0] === "up"){
                 placeHolderGIF = upWalkingGIF;
                 moves.shift();
-                vel.y = -movementSpeed;
-                y -= 1;
-            }else if(moves[0] === "down"){
+                if(canYouMove("up", createVector(x,y), level1Grid)){
+                    vel.y = -movementSpeed;
+                    y -= 1;
+                } else console.log("cannot move up");
+            } else if(moves[0] === "down"){
                 placeHolderGIF = downWalkingGIF;
                 moves.shift();
-                vel.y = movementSpeed;
-                y += 1;
+                if(canYouMove("up", createVector(x,y), level1Grid)){
+                    vel.y = movementSpeed;
+                    y += 1;
+                } else console.log("cannot move down");
             }
         }else{
             moving = false;
@@ -254,5 +257,35 @@ function movement(){
     }else{
         movementTime -= 1;
     }
+}
+
+function canYouMove(direction, currentPos, g){
+    console.log(direction + " " + currentPos + " " + g);
+    if(direction==="up"){
+        //check if there is a value above the current Pos.y
+          if(currentPos.y!==0){
+             if(g[currentPos.x][currentPos.y-1] !== null){
+                 return true;
+             }
+         }
+      }  else return false;
+    
+    else if(direction==="down"){
+        if(g[currentPos.x][currentPos.y+1] !== null){
+            return true;
+        }
+      }  else return false;
+    
+    else if(direction==="left"){
+        if(currentPos.x!==0 && g[currentPos.x-1][currentPos.y] !== null){
+            return true;
+        }
+      }  else return false;
+    
+    else if(direction==="right"){
+        if(currentPos.x!==0 && g[currentPos.x+1][currentPos.y] !== null){
+            return true;
+        }
+      }  else return false;
 }
 
