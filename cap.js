@@ -1,26 +1,22 @@
-let area;
-let msg;
-let myArray = [];
+let msg; // text input box, text input
+let myArray = []; // array split
 let words = [];
-let moves = [];
+//let moves = [];
 let error = false;
 let errorMsg = "";
 let stars = false;
-let lineGoal = 4;
 
 //movement variables
 let movementSpeed = 2.85;
 let movementTime = 0;
 let moving = true;
-let vel;
-let pos;
-let x = 0;
-let y = 0;
+let gridPos;
 
-let gameState = 0;
+
+let Gamestates, gs0;
+let currentGamestate = 0;
 
 let level1Grid;
-let level1Goal;
 
 var leftWalkingGIF, rightWalkingGIF, upWalkingGIF, downWalkingGIF, placeHolderGIF;
 var gif_loadImg, gif_createImg;
@@ -35,7 +31,7 @@ function preload(){
     placeHolderGIF = loadImage('leftwalking.gif');
     
     moonbg = loadImage('moonbg.png');
-
+    gridPos = createVector(0, 0);
     //font = loadFont('text.ttf');
 }
 
@@ -47,245 +43,127 @@ function setup() {
     
     //textFont(font);
     
-    area = createElement('textarea');
-    area.position(displayWidth*3/4,0);
-    area.elt.placeholder = 'CODE HERE OR ELSE';
-    area.style('width', '400px');
-    area.style('height', displayHeight);
-    
-    vel = createVector(0,0);
-    pos = createVector(displayWidth/20,displayHeight/8);
+    //vel = createVector(0,0);
+    //pos = createVector(displayWidth/20,displayHeight/8);
 
-    level1Grid = new Grid(displayWidth/2, displayHeight/4, []);
     level1Goal = createVector(4, 0);
+    level1Grid = new Grid([], level1Goal, createVector(0, 0)); //remove array, goal, and start position
     
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     upWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     downWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
-    moonbg.resize(displayWidth*.7, displayHeight);
+    moonbg.resize(displayWidth*.7, displayHeight); //resizing is being goofy
+    
+    
+    
+    Gamestates = [];
+    gs0 = new Gamestate(null, null, null); Gamestates.push(gs0);
+    gs1 = new Gamestate(level1Grid, moonbg, 4); Gamestates.push(gs1); //grid, background, lineGoal
+
+    
+
+ 
 }
 
 
 function draw() {
-    //console.log(x + " " + y);
-    image(moonbg,displayWidth/2, displayHeight/2);
+    //image(moonbg,displayWidth/2, displayHeight/2);
+    let cgs = Gamestates[currentGamestate];
+    //replace with switch statement
+    if(currentGamestate===0) cgs.title();
+    if(currentGamestate===1) cgs.display();
+    if(currentGamestate===2) cgs.completion();
     
-    if(gameState === 0){
-        background (100);
-        rectMode(CENTER);
-        rect(displayWidth/2, displayHeight/2, displayWidth/6, displayHeight/8);
-        textSize(displayHeight/12);
-        textAlign(CENTER, CENTER);
-        fill(0);
-        text("start", displayWidth/2, displayHeight/2);
-    } else if (gameState === 1){
-        fill(255);
-        
-        if(x === level1Goal.x && y === level1Goal.y && moving === false){
-           gameState += 1;
-            console.log("Goal reached.");
-           }
-           
-        removeArray = []; 
-        level1Grid.removeArray = removeArray;
-        
-        for (let x = 0; x < level1Grid.gridArray.length; x++) {
-            for (let y = 0; y < level1Grid.gridArray[x].length; y++) {
-                //skipping row one 
-                if (y !== 0) {     
-                    removeArray.push(new p5.Vector(x, y));
-                }
-            }
-        }  
-            level1Grid.removeArray = removeArray;
-            level1Grid.displayGrid();
-            image(placeHolderGIF, pos.x, pos.y);
-        }   else if (gameState === 2){
-        text("you did it", displayWidth/2, displayHeight/2);
+    repaint();
+    if(cgs.grid!=null){ //if there is a grid, check if they have met the goal every frame
+        if(cgs.grid.checkGoal(cgs.moving)) currentGameState++;
     }
-
     
-        //movement stuff
-        if(moving === true){
-            movement();
-        }
     
-        pos.add(vel);
-
-        repaint(); 
-    
-        if(error === true){
-            text(errorMsg, displayWidth/10, displayHeight/30);
-        }
-    
-      
-    }
-
+}
     
 
 
 function repaint() {
-    msg = area.value();
+    let cgs = Gamestates[currentGamestate];
+    msg = cgs.area.value();
+    //console.log(msg);
     fill(255);
     textSize(displayWidth/30);   
 }
 
 function keyPressed(){
+    let cgs = Gamestates[currentGamestate];
     if (keyCode === OPTION) {
-        stars = false;
+        cgs.starGoal = false; //idk why you have to set this to false every time
         error = false;
-        print(area.elt.value);
+        
+        print(cgs.area.elt.value);
         myArray.push(msg);
         words = splitTokens(msg);
         console.log(words);
         
-        if(words.length < lineGoal){
+        if(words.length < cgs.lineGoal){
             stars = true;
-            console.log("star earned");
+            console.log("star earned!");
         }
         
-        if(pos.x !== displayWidth/20 || pos.y !== displayHeight/8){
-            pos = createVector(displayWidth/20,displayHeight/8);
-        }
+     
         
-        for(let i = 0; i < words.length; i++){
-            let currentLine = words[i];
-            let s = currentLine.substring(currentLine.length-1, currentLine.length);
-            if(s !== ';'){
-                errorMsg = "SEMI COLON ERROR";
-                console.log(errorMsg);
-                error = true;
-            }
-            let a = words[i].split("\"");
-            moves[i] = a[1];
-        }
-        
-        if(!error){
-            for(let i = 0; i < words.length; i++){
-                let currentLine = words[i];
-                let lParen = 0;
-                let rParen = 0;
-                for(let i = 0; i<currentLine.length; i++){
-                    if(currentLine.substring(i-1, i)==="(") lParen++;
-                    if(currentLine.substring(i-1, i)===")") rParen++;
-                }         
-                if(lParen !== 1 || rParen !== 1){
-                    errorMsg = "PARENTHESIS ERROR";
-                    console.log(errorMsg);
-                    error = true;
-                } 
-            }
-        }
-        
-         
-        if(!error){
-            for(let i = 0; i < words.length; i++){
-                let currentLine = words[i];
-                let quote = 0;
-                for(let i = 0; i<currentLine.length; i++){
-                    if(currentLine.substring(i-1, i)=== '"') quote++;
-                }         
-                if(quote !== 2){
-                    errorMsg = "QUOTE ERROR";
-                      console.log(errorMsg);
-                    error = true;
-                } 
-            }
-        }
-        
-        if(error === false){
-           moving = true;
-        }
-    
-        //reset code
-        words = [];
+       cgs.checkError(words);
+
+       cgs.movement();
     }
 }
 
 //button check
 function mouseClicked(){
-    if (gameState === 0 && mouseX > displayWidth/2 - displayWidth/12 && mouseX < displayWidth/2 + displayWidth/12 && mouseY > displayHeight/2 - displayHeight/16 && mouseY < displayHeight/2 + displayHeight/16){
-        gameState += 1;
+    if (currentGamestate === 0 && mouseX > displayWidth/2 - displayWidth/12 && mouseX < displayWidth/2 + displayWidth/12 && mouseY > displayHeight/2 - displayHeight/16 && mouseY < displayHeight/2 + displayHeight/16){
+        currentGamestate += 1;
         textAlign(LEFT, TOP);
     }
 }
 
 //movement function
-function movement(){
-    if(moving === true && movementTime === 0){
-        vel.x = 0;
-        vel.y = 0;
-        if(moves.length > 0){
-            movementTime = 40;
-            if(moves[0] === "right"){
-                placeHolderGIF = rightWalkingGIF;
-                moves.shift();
-                if(canYouMove("right", createVector(x,y), level1Grid)){ //switch for gamestates
-                    vel.x = movementSpeed;
-                    x += 1;
-                } else console.log("cannot move right");
-            }else if(moves[0] === "left"){
-                placeHolderGIF = leftWalkingGIF;
-                //image(leftWalkingGIF, pos.x, pos.y);
-                moves.shift();
-                if(canYouMove("left", createVector(x,y), level1Grid)){
-                    vel.x = -movementSpeed;
-                    x -= 1;
-                } else console.log("cannot move left");
-            }else if(moves[0] === "up"){
-                placeHolderGIF = upWalkingGIF;
-                moves.shift();
-                if(canYouMove("up", createVector(x,y), level1Grid)){
-                    vel.y = -movementSpeed;
-                    y -= 1;
-                } else console.log("cannot move up");
-            } else if(moves[0] === "down"){
-                placeHolderGIF = downWalkingGIF;
-                moves.shift();
-                if(canYouMove("up", createVector(x,y), level1Grid)){
-                    vel.y = movementSpeed;
-                    y += 1;
-                } else console.log("cannot move down");
-            }
-        }else{
-            moving = false;
-            placeHolderGIF = rightWalkingGIF;
-            vel.x = 0;
-            vel.y = 0;
-        }
-    }else{
-        movementTime -= 1;
-    }
-}
+
 
 function canYouMove(direction, currentPos, g){
     console.log(direction + " " + currentPos + " " + g);
     if(direction==="up"){
         //check if there is a value above the current Pos.y
           if(currentPos.y!==0){
-             if(g[currentPos.x][currentPos.y-1] !== null){
+             if(g[currentPos.y-1][currentPos.x] !== null){
                  return true;
              }
          }
-      }  else return false;
+      } 
     
-    else if(direction==="down"){
-        if(g[currentPos.x][currentPos.y+1] !== null){
+    if(direction==="down"){
+        if(g[currentPos.y+1][currentPos.x] !== null){
             return true;
         }
-      }  else return false;
+      }  
     
-    else if(direction==="left"){
-        if(currentPos.x!==0 && g[currentPos.x-1][currentPos.y] !== null){
+    if(direction==="left"){
+        if(currentPos.x!==0 && g[currentPos.y][currentPos.x-1] !== null){
             return true;
         }
-      }  else return false;
+      }
     
-    else if(direction==="right"){
-        if(currentPos.x!==0 && g[currentPos.x+1][currentPos.y] !== null){
+    if(direction==="right"){
+        console.log("test");
+        console.log("rows " + g[currentPos.y]);
+        for(let i = 0; i<=g.length-1; i++){
+            console.log("cols " + g[currentPos.x][i]);
+        }
+        console.log(g[currentPos.y][currentPos.x+1]);
+        if(currentPos.x+1>g[currentPos.y].length && g[currentPos.y][currentPos.x+1] !== null){
             return true;
         }
-      }  else return false;
+      }  
+    else return true;
+    
+    //else return false;
 }
 
