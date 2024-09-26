@@ -87,8 +87,8 @@ function draw() {
 
 function repaint() {
     let cgs = Gamestates[currentGamestate];
-    msg = cgs.area.value();
-    //console.log(msg);
+    msg = cgs.getAreaValue()
+    //console.log("msg" + msg);
     fill(255);
     textSize(displayWidth/30);   
 }
@@ -99,18 +99,18 @@ function keyPressed(){
         cgs.starGoal = false; //idk why you have to set this to false every time
         error = false;
         
-        print(cgs.area.elt.value);
+        print(cgs.getAreaValue());
+        
         myArray.push(msg);
+        console.log("my array" + myArray);
         words = splitTokens(msg);
-        console.log(words);
+        console.log("words: " + words);
         
         if(words.length < cgs.lineGoal){
             stars = true;
             console.log("star earned!");
         }
-        
-     
-        
+    
        cgs.checkError(words);
 
        cgs.movement();

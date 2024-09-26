@@ -83,7 +83,7 @@
         this.vel.y = 0;
         console.log(this.moves);
         if(this.moves.length > 0){
-            console.log("test");
+            
             this.movementTime = 40;
             if(this.moves[0] === "right"){
                placeHolderGIF = rightWalkingGIF;
@@ -115,14 +115,18 @@
      
      
      checkError(words){
+        console.log(words);
           for(let i = 0; i < words.length; i++){
+   
             let currentLine = words[i];
+            console.log(currentLine);
             let s = currentLine.substring(currentLine.length-1, currentLine.length);
             if(s !== ';'){
                 this.errorMsg = "SEMI COLON ERROR";
                 this.error = true;
             }
             let a = words[i].split("\"");
+            console.log(a);
             this.moves[i] = a[1];
               
         }
@@ -166,6 +170,11 @@
         //reset code
         words = [];
          
+     }
+     
+     getAreaValue(){
+         console.log(this.area.value());
+         return this.area.elt.value;
      }
      
  }
