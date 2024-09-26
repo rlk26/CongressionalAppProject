@@ -13,7 +13,7 @@ let moving = true;
 let gridPos;
 
 
-let Gamestates, gs0;
+let Gamestates, gs0, gs1;
 let currentGamestate = 0;
 
 let level1Grid;
@@ -31,7 +31,7 @@ function preload(){
     placeHolderGIF = loadImage('leftwalking.gif');
     
     moonbg = loadImage('moonbg.png');
-    gridPos = createVector(0, 0);
+    //gridPos = createVector(0, 0);
     //font = loadFont('text.ttf');
 }
 
@@ -127,7 +127,7 @@ function mouseClicked(){
 
 //movement function
 
-
+/*
 function canYouMove(direction, currentPos, g){
     console.log(direction + " " + currentPos + " " + g);
     if(direction==="up"){
@@ -166,4 +166,4 @@ function canYouMove(direction, currentPos, g){
     
     //else return false;
 }
-
+*/

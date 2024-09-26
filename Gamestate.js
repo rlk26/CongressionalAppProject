@@ -2,14 +2,26 @@
      constructor(grid, bg, lineGoal){
         
          this.pos = createVector(0, 0);
+         this.grid = grid; 
+         console.log(this.grid);
          
-         this.grid = grid; if(this.grid!=null) { // if there is  agrid, display a text box and set position to grid start
-            this.textBoxDisplay();
+         this.area = createElement('textarea');
+         
+         if(this.grid===null){
+            console.log("null grid? : " + this.grid);   
+             
+         } else { // if there is  agrid, display a text box and set position to grid start
+            //this.textBoxDisplay(); // find a way to show and hide the text box, attribute
+            
             this.pos = this.grid.startPos;
             this.vel = createVector(0,0);
             placeHolderGIF = rightWalkingGIF;
             
         } 
+
+        this.textBoxDisplay();
+        //this.area.style.display = 'none';
+         
         this.bg = bg;
         if(bg!=null) this.bg.resize(displayWidth, displayHeight);
         this.lineGoal = lineGoal;
@@ -17,8 +29,7 @@
         this.moving = true;
         this.movementTime = 0; //matter?
         
-        this.area = createElement('textarea');
-         
+    
 
         this.error = false;
         this.errorMsg = "";
@@ -30,15 +41,19 @@
         image(this.bg, width/2, height/2);
         if(this.grid!=null){ //if the gamestate has a grid, display the grid
            this.grid.displayGrid();
-           image(placeHolderGIF, this.pos.x, this.pos.y);
-           this.pos.add(this.vel);
+           image(placeHolderGIF, this.pos.x, this.pos.y); //display sprite
+           this.pos.add(this.vel); // change position  values
             
+            this.area.position(displayWidth*3/4,0); //move area
             
             if(this.pos.x !== displayWidth/20 ||this.pos.y !== displayHeight/8){ //resets position
-            this.pos = createVector(displayWidth/20,displayHeight/8);
-            this.grid.gridPos.x = this.grid.startPos;
-            this.grid.gridPos.y = this.grid.startPos;
-        }
+                this.pos = createVector(displayWidth/20,displayHeight/8);
+                this.grid.gridPos.x = this.grid.startPos;
+                this.grid.gridPos.y = this.grid.startPos;
+            }
+        } else {
+            console.log("null?" + this.grid);
+            this.area.style.display = 'none';
         }
         
         
@@ -47,8 +62,6 @@
      
     textBoxDisplay(){
         fill(255);
-        this.area = createElement('textarea');
-        this.area.position(displayWidth*3/4,0);
         this.area.elt.placeholder = 'CODE HERE OR ELSE';
         this.area.style('width', '400px');
         this.area.style('height', displayHeight);
@@ -64,6 +77,8 @@
         textAlign(CENTER, CENTER);
         fill(0);
         text("start", displayWidth/2, displayHeight/2);
+        
+        this.area.style.display = 'none';
     }
      
     completion(){
@@ -173,8 +188,8 @@
      }
      
      getAreaValue(){
-         console.log(this.area.value());
-         return this.area.elt.value;
+         //console.log("area value: " + this.area.value());
+         return this.area.elt.value; // this isn't storing WHAT TO WORK ON 
      }
      
  }

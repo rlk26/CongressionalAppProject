@@ -7,7 +7,6 @@ class Grid{
         this.rows = Math.floor((displayHeight - displayHeight / 8) / this.gridSize);
         this.goal = goal;
         
-        
         this.startPos = startPos;
         this.gridPos = startPos;
     }
