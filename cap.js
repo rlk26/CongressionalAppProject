@@ -7,9 +7,8 @@ let errorMsg = "";
 let stars = false;
 
 //movement variables
-let movementSpeed = 2.85;
-let movementTime = 0;
-let moving = true;
+
+
 let gridPos;
 
 
@@ -60,6 +59,9 @@ function setup() {
     Gamestates = [];
     gs0 = new Gamestate(null, null, null); Gamestates.push(gs0);
     gs1 = new Gamestate(level1Grid, moonbg, 4); Gamestates.push(gs1); //grid, background, lineGoal
+    
+    
+    
 
     
 
@@ -72,7 +74,7 @@ function draw() {
     let cgs = Gamestates[currentGamestate];
     //replace with switch statement
     if(currentGamestate===0) cgs.title();
-    if(currentGamestate===1) cgs.display();
+    if(currentGamestate===1) {cgs.display(); cgs.movement();}
     if(currentGamestate===2) cgs.completion();
     
     repaint();
@@ -80,6 +82,7 @@ function draw() {
         if(cgs.grid.checkGoal(cgs.moving)) currentGameState++;
     }
     
+      
     
 }
     
@@ -88,32 +91,23 @@ function draw() {
 function repaint() {
     let cgs = Gamestates[currentGamestate];
     msg = cgs.getAreaValue()
-    //console.log("msg" + msg);
     fill(255);
     textSize(displayWidth/30);   
+
+    
 }
 
 function keyPressed(){
+
     let cgs = Gamestates[currentGamestate];
     if (keyCode === OPTION) {
         cgs.starGoal = false; //idk why you have to set this to false every time
         error = false;
         
-        print(cgs.getAreaValue());
-        
-        myArray.push(msg);
-        console.log("my array" + myArray);
         words = splitTokens(msg);
-        console.log("words: " + words);
-        
-        if(words.length < cgs.lineGoal){
-            stars = true;
-            console.log("star earned!");
-        }
     
        cgs.checkError(words);
-
-       cgs.movement();
+    
     }
 }
 
