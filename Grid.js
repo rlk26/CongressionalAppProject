@@ -2,7 +2,7 @@ class Grid{
     constructor(removeArray, goal, startPos){
         this.gridSize = displayHeight/8;
         this.gridArray = [];
-        this.removeArray = removeArray; //console.log(this.removeArray);
+        this.removeArray = removeArray;
         this.cols = Math.floor((displayWidth / 2 - displayWidth / 20) / this.gridSize);
         this.rows = Math.floor((displayHeight - displayHeight / 8) / this.gridSize);
         this.goal = goal;

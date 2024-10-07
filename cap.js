@@ -4,10 +4,6 @@ let words = [];
 //let moves = [];
 let error = false;
 let errorMsg = "";
-let stars = false;
-
-//movement variables
-
 
 let gridPos;
 
@@ -46,7 +42,7 @@ function setup() {
     //pos = createVector(displayWidth/20,displayHeight/8);
 
     level1Goal = createVector(4, 0);
-    level1Grid = new Grid([], level1Goal, createVector(0, 0)); //remove array, goal, and start position
+    level1Grid = new Grid([], level1Goal, createVector(displayWidth/20,displayHeight/8)); //remove array, goal, and start position
     
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
@@ -102,11 +98,23 @@ function keyPressed(){
     let cgs = Gamestates[currentGamestate];
     if (keyCode === OPTION) {
         cgs.starGoal = false; //idk why you have to set this to false every time
-        error = false;
         
         words = splitTokens(msg);
+        cgs.checkError(words); //check for error
+        
+        //reset position vector to start position
+        cgs.pos = cgs.grid.startPos;
+        /*
+        cgs.pos.x = displayWidth/20; //FIX THIS!
+            //cgs.grid.startPos.x;
+        cgs.pos.y=cgs.grid.startPos.y;
+        console.log("pos: " + cgs.pos.x);
+        console.log("start: " + cgs.grid.startPos.x);
+        */
+       
     
-       cgs.checkError(words);
+        
+      
     
     }
 }

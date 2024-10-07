@@ -3,7 +3,6 @@
         
          this.pos = createVector(0, 0);
          this.grid = grid; 
-         //console.log(this.grid);
          
          this.area = createElement('textarea');
          
@@ -11,8 +10,6 @@
             console.log("null grid? : " + this.grid);   
              
          } else { // if there is  agrid, display a text box and set position to grid start
-            //this.textBoxDisplay(); // find a way to show and hide the text box, attribute
-            
             this.pos = this.grid.startPos;
             this.vel = createVector(0,0);
             placeHolderGIF = rightWalkingGIF;
@@ -93,17 +90,12 @@
 
 
     movement(){
-
     if(error === true) {
        text(this.errorMsg, displayWidth/10, displayHeight/30);
     }
     if(this.moving === true && this.error === false && this.movementTime === 0){
-      
-       
-  
         if(this.moves.length > 0){
-             this.movementTime = 40;
-         
+            this.movementTime = 40;
             if(this.moves[0] === "right"){
                placeHolderGIF = rightWalkingGIF;
                 this.moves.shift();
@@ -130,16 +122,8 @@
             this.vel.x = 0;
             this.vel.y = 0;
         }
-            
-          //this.moving = false; //testing, where should I put velocity?
-          
-      
-   
-       
-        
     } else{
             this.movementTime -= 1;
-
     }
 }
      
