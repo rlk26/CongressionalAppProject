@@ -40,14 +40,10 @@
            this.pos.add(this.vel); // change position  values
             
            this.area.position(displayWidth*3/4,0); //move textArea, maybe move eventually
-
         } else {
             console.log("null?" + this.grid);
             this.area.style.display = 'none';
-        }
-        
-        
-       
+        }     
     }  
      
     textBoxDisplay(){
@@ -133,7 +129,6 @@
               
         } 
         if(!this.error){
-           
             for(let i = 0; i < words.length; i++){
                 let currentLine = words[i];
                 let lParen = 0;
@@ -177,7 +172,6 @@
      }
      
      getAreaValue(){
-         //console.log("area value: " + this.area.value());
          return this.area.elt.value; // this isn't storing WHAT TO WORK ON 
      }
      
