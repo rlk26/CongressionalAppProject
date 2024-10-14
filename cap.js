@@ -1,12 +1,5 @@
 let msg; // text input box, text input
-let myArray = []; // array split
 let words = [];
-//let moves = [];
-let error = false;
-let errorMsg = "";
-
-let gridPos;
-
 
 let Gamestates, gs0, gs1;
 let currentGamestate = 0;
@@ -19,6 +12,7 @@ var moonbg;
 let font;
 
 function preload(){
+    //load image
     leftWalkingGIF = loadImage('leftwalking.gif');
     rightWalkingGIF = loadImage('rightwalking.gif');
     upWalkingGIF = loadImage('rightwalking.gif');
@@ -26,7 +20,6 @@ function preload(){
     placeHolderGIF = loadImage('leftwalking.gif');
     
     moonbg = loadImage('moonbg.png');
-    //gridPos = createVector(0, 0);
     //font = loadFont('text.ttf');
 }
 
@@ -34,63 +27,47 @@ function setup() {
     createCanvas(displayWidth, displayHeight);
     
     imageMode(CENTER);
-    //image(moonbg,displayWidth/2, displayHeight/2);
-    
-    //textFont(font);
-    
-    //vel = createVector(0,0);
-    //pos = createVector(displayWidth/20,displayHeight/8);
 
     level1Goal = createVector(4, 0);
-    level1Grid = new Grid([], level1Goal, createVector(displayWidth/20,displayHeight/8)); //remove array, goal, and start position
+    level1Grid = new Grid([], level1Goal, createVector(displayWidth/20,displayHeight/8), createVector(0, 0)); //remove array, goal, and start position, gridStart
     
+    //resize all variables
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     upWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     downWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
-    moonbg.resize(displayWidth*.7, displayHeight); //resizing is being goofy
+    moonbg.resize(displayWidth*.7, displayHeight);
+
     
-    
-    
+    //make new gamestate
     Gamestates = [];
     gs0 = new Gamestate(null, null, null); Gamestates.push(gs0);
     gs1 = new Gamestate(level1Grid, moonbg, 4); Gamestates.push(gs1); //grid, background, lineGoal
     
-    
-    
-
-    
-
- 
 }
 
 
 function draw() {
-    //image(moonbg,displayWidth/2, displayHeight/2);
     let cgs = Gamestates[currentGamestate];
-    //replace with switch statement
+   
     if(currentGamestate===0) cgs.title();
     if(currentGamestate===1) {cgs.display(); cgs.movement();}
     if(currentGamestate===2) cgs.completion();
     
     repaint();
-    if(cgs.grid!=null){ //if there is a grid, check if they have met the goal every frame
-        if(cgs.grid.checkGoal(cgs.moving)) currentGameState++;
+    
+    //if there is a grid, check if they have met the goal every frame
+    if(cgs.grid!=null){ 
+        if(cgs.grid.checkGoal(cgs.moving)) {
+            console.log("goal met");
+           currentGameState++; 
+        }
     }
-    
-      
-    
 }
     
-
-
 function repaint() {
     let cgs = Gamestates[currentGamestate];
-    msg = cgs.getAreaValue()
-    fill(255);
-    textSize(displayWidth/30);   
-
-    
+    msg = cgs.getAreaValue();
 }
 
 function keyPressed(){
@@ -102,20 +79,8 @@ function keyPressed(){
         words = splitTokens(msg);
         cgs.checkError(words); //check for error
         
-        //reset position vector to start position
-        cgs.pos = cgs.grid.startPos;
-        /*
-        cgs.pos.x = displayWidth/20; //FIX THIS!
-            //cgs.grid.startPos.x;
-        cgs.pos.y=cgs.grid.startPos.y;
-        console.log("pos: " + cgs.pos.x);
-        console.log("start: " + cgs.grid.startPos.x);
-        */
-       
-    
-        
-      
-    
+        //reset position vector to grid start position       
+        cgs.pos = cgs.grid.startPos.copy();
     }
 }
 

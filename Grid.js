@@ -1,5 +1,5 @@
 class Grid{
-    constructor(removeArray, goal, startPos){
+    constructor(removeArray, goal, startPos, gridPos){
         this.gridSize = displayHeight/8;
         this.gridArray = [];
         this.removeArray = removeArray;
@@ -7,8 +7,11 @@ class Grid{
         this.rows = Math.floor((displayHeight - displayHeight / 8) / this.gridSize);
         this.goal = goal;
         
-        this.startPos = startPos;
-        this.gridPos = startPos;
+        
+        //need to do .copy() to save value instead of just assign variable
+        this.startPos = startPos.copy();
+        this.gridPos = gridPos.copy();
+        this.gridStart = gridPos.copy();
     }
      
     displayGrid() {
@@ -47,8 +50,8 @@ class Grid{
         for (let i = 0; i < this.removeArray.length; i++) {
             let removing = this.removeArray[i];
             //converting to grid positions
-            let x = removing.x; //console.log(x);
-            let y = removing.y; //console.log(y);
+            let x = removing.x;
+            let y = removing.y;
           
             if (this.gridArray[y][x] && this.removeArray[y][x] === true){
                  this.gridArray[y][x] = null;
@@ -59,13 +62,12 @@ class Grid{
         }
      }
      
-    
     checkGoal(moving){
-
-        if(this.gridPos.x === this.goal.x && this.gridPos.y === this.goal.y && moving === false){
+       //checks the goalPos with your grid Position
+        if(this.gridPos.x == this.goal.x && this.gridPos.y == this.goal.y && moving == false){
           console.log("Goal reached.");
-          return true;
-        } else return false;
+          return true; //returns true if you met goal
+        } else return false; //returns false if you haven't met goal
         
          
      }
