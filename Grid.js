@@ -7,7 +7,6 @@ class Grid{
         this.rows = Math.floor((displayHeight - displayHeight / 8) / this.gridSize);
         this.goal = goal;
         
-        
         //need to do .copy() to save value instead of just assign variable
         this.startPos = startPos.copy();
         this.gridPos = gridPos.copy();

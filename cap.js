@@ -43,6 +43,9 @@ function setup() {
     gs0 = new Gamestate(null, null, null); Gamestates.push(gs0);
     gs1 = new Gamestate(level1Grid, moonbg, 4); Gamestates.push(gs1); //grid, background, lineGoal
     
+    
+   
+    
 }
 
 

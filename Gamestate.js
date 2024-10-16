@@ -14,6 +14,7 @@
 
         this.textBoxDisplay(); //display textBox
         //this.area.style.display = 'none';
+
          
         this.bg = bg; //copies background from constructor to class
         if(bg!=null) this.bg.resize(displayWidth, displayHeight); //if there is a background, resize it
