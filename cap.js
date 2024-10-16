@@ -7,7 +7,6 @@ let currentGamestate = 0;
 let level1Grid;
 
 var leftWalkingGIF, rightWalkingGIF, upWalkingGIF, downWalkingGIF, placeHolderGIF;
-var gif_loadImg, gif_createImg;
 var moonbg;
 let font;
 
