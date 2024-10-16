@@ -81,6 +81,11 @@ function keyPressed(){
         
         //reset position vector to grid start position       
         cgs.pos = cgs.grid.startPos.copy();
+        console.log(cgs.grid.gridPos.x + " " + cgs.grid.gridStart.x); //fix later to make gridPos and start the same thing...
+        if(cgs.grid.gridPos.x!=cgs.grid.gridStart.x || cgs.grid.gridPos.y!=cgs.grid.gridStart.y){
+            cgs.grid.gridPos = cgs.grid.gridStart.copy();
+        } else console.log("you haven't moved");
+        
     }
 }
 
@@ -95,42 +100,6 @@ function mouseClicked(){
 //movement function
 
 /*
-function canYouMove(direction, currentPos, g){
-    console.log(direction + " " + currentPos + " " + g);
-    if(direction==="up"){
-        //check if there is a value above the current Pos.y
-          if(currentPos.y!==0){
-             if(g[currentPos.y-1][currentPos.x] !== null){
-                 return true;
-             }
-         }
-      } 
-    
-    if(direction==="down"){
-        if(g[currentPos.y+1][currentPos.x] !== null){
-            return true;
-        }
-      }  
-    
-    if(direction==="left"){
-        if(currentPos.x!==0 && g[currentPos.y][currentPos.x-1] !== null){
-            return true;
-        }
-      }
-    
-    if(direction==="right"){
-        console.log("test");
-        console.log("rows " + g[currentPos.y]);
-        for(let i = 0; i<=g.length-1; i++){
-            console.log("cols " + g[currentPos.x][i]);
-        }
-        console.log(g[currentPos.y][currentPos.x+1]);
-        if(currentPos.x+1>g[currentPos.y].length && g[currentPos.y][currentPos.x+1] !== null){
-            return true;
-        }
-      }  
-    else return true;
-    
-    //else return false;
+
 }
 */

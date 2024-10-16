@@ -1,7 +1,6 @@
  class Gamestate{
      constructor(grid, bg, lineGoal){
-        
-         this.pos = createVector(0, 0); //current position value
+         this.pos = createVector(0, 0); //gridPos
          this.grid = grid; //copies grid from constructor to class
          
          this.area = createElement('textarea'); //creates a text area
@@ -78,22 +77,22 @@
     if(this.error === false && this.movementTime === 0){
         if(this.moves.length > 0){
             this.movementTime = 40;
-            if(this.moves[0] === "right"){
+            if(this.moves[0] === "right" && this.canYouMove("right", this.grid)){
                 placeHolderGIF = rightWalkingGIF;
                 this.moves.shift();
                 this.vel = createVector(this.movementSpeed, 0);
                 this.grid.gridPos.x+=1;
-            }else if(this.moves[0] === "left"){
+            }else if(this.moves[0] === "left" && this.canYouMove("left", this.grid)){
                 placeHolderGIF = leftWalkingGIF;
                 this.moves.shift();
                 this.vel = createVector(-this.movementSpeed, 0);
                 this.grid.gridPos.x-=1;
-            }else if(this.moves[0] === "up"){
+            }else if(this.moves[0] === "up" && this.canYouMove("up", this.grid)){
                 placeHolderGIF = upWalkingGIF;
                 this.moves.shift();
                 this.vel = createVector(0,-this.movementSpeed);
                 this.grid.gridPos.y-=1;
-            } else if(this.moves[0] === "down"){
+            } else if(this.moves[0] === "down" && this.canYouMove("down", this.grid)){
                 placeHolderGIF = downWalkingGIF;
                 this.moves.shift();
                 this.vel = createVector(0, this.movementSpeed);
@@ -109,12 +108,13 @@
             this.vel.x = 0;
             this.vel.y = 0;
             this.moving = false;
+          
         }
     } else{
             this.movementTime -= 1;
     }
 }
-     
+     //function to immediately abort test
      
      checkError(words){
           for(let i = 0; i < words.length; i++){
@@ -175,21 +175,39 @@
          return this.area.elt.value; // this isn't storing WHAT TO WORK ON 
      }
      
- }
- 
-         /*removeArray = []; 
-        level1Grid.removeArray = removeArray;
-        
-        for (let i = 0; i < level1Grid.gridArray.length; i++) {
-            for (let j = 0; j < level1Grid.gridArray[i].length; j++) {
-                //skipping row one 
-                if (j!== 0) {     
-                    removeArray.push(new p5.Vector(i, j));
-                }
-            }
-        }  
-        
-           level1Grid.removeArray = removeArray;
-            level1Grid.displayGrid();
-        
-        */ //from gs1 in og code
+     
+    
+  canYouMove(direction, g){
+    if(direction==="up"){
+          if(g.gridPos.y!==0){
+             if(g.gridArray[g.gridPos.y-1][g.gridPos.x] !== null){
+                 return true;
+             }
+         }
+      } 
+    
+    if(direction==="down"){
+        if(g.gridArray[g.gridPos.y+1][g.gridPos.x] !== null){
+            return true;
+        }
+      }  
+    
+    if(direction==="left"){
+        if(g.gridPos.x!==0 && g.gridArray[g.gridPos.y][g.gridPos.x-1] !== null){
+            return true;
+        }
+      }
+    
+    if(direction==="right"){
+        if(g.gridPos.x+1<g.gridArray[g.gridPos.y].length && g.gridArray[g.gridPos.y][g.gridPos.x+1]){
+           return true;
+        }
+          else return false;
+      }  
+    } 
+
+}
+
+
+
+
