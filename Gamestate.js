@@ -68,8 +68,16 @@
     }
      
     completion(){
-      text("you did it", displayWidth/2, displayHeight/2);
+         //display the reached the goal box 
+        rectMode(CENTER);
+        rect(displayWidth/2, displayHeight/2, displayWidth/6, displayHeight/8);
+        textSize(displayHeight/12);
+        textAlign(CENTER, CENTER);
+        fill(0);
+        text("you did it!", displayWidth/2, displayHeight/2);
     }
+     
+
      
     movement(){
     if(this.error === true) {

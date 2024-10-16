@@ -26,6 +26,7 @@ class Grid{
                 if (this.gridArray[y][x] === true) {
                     let posX = displayWidth / 20 + x * this.gridSize;
                     let posY = displayHeight / 8 + y * this.gridSize;
+                    
                     fill(255, 0, 0);
                     circle(posX, posY, displayWidth / 30);
                 }
