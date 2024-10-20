@@ -61,8 +61,9 @@ function draw() {
     //if there is a grid, check if they have met the goal every frame
     if(cgs.grid!=null){ 
         if(cgs.grid.checkGoal(cgs.moving)) {
-            console.log("goal met");
-           currentGameState++; 
+            //console.log("goal met");
+            cgs.completion();
+           //currentGameState++; 
         }
     }
 }
