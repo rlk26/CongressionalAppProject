@@ -19,13 +19,15 @@ function preload(){
     placeHolderGIF = loadImage('leftwalking.gif');
     
     moonbg = loadImage('moonbg.png');
-    //font = loadFont('text.ttf');
+    font = loadFont('text.ttf');
 }
 
 function setup() {
     createCanvas(displayWidth, displayHeight);
     
     imageMode(CENTER);
+    
+    textFont(font);
 
     level1Goal = createVector(4, 0);
     level1Grid = new Grid([], level1Goal, createVector(displayWidth/20,displayHeight/8), createVector(0, 0)); //remove array, goal, and start position, gridStart
