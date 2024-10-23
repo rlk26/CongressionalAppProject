@@ -65,7 +65,7 @@ class Grid{
     checkGoal(moving){
        //checks the goalPos with your grid Position
         if(this.gridPos.x == this.goal.x && this.gridPos.y == this.goal.y && moving == false){
-          console.log("Goal reached.");
+          //console.log("Goal reached.");
           return true; //returns true if you met goal
         } else return false; //returns false if you haven't met goal
         

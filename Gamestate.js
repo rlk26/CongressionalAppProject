@@ -28,6 +28,7 @@ class Gamestate{
         this.error = false;
         this.errorMsg = "";
         
+        this.attempts = 0;
         this.moves = [];
     }
      
@@ -70,11 +71,21 @@ class Gamestate{
     completion(){
          //display the reached the goal box 
         rectMode(CENTER);
-        rect(displayWidth/2, displayHeight/2, displayWidth/6, displayHeight/8);
+        fill(255, 150);
+        rect(displayWidth*.4, displayHeight*.45, displayWidth/2, displayHeight*.7);
         textSize(displayHeight/12);
         textAlign(CENTER, CENTER);
         fill(0);
-        text("you did it!", displayWidth/2, displayHeight/2);
+        text("Level Complete", displayWidth*.4, displayHeight*.15);
+        textAlign(LEFT);
+        textSize(50);
+        text("Attempts: " + this.attempts, displayWidth*.2, displayHeight*.25);
+        text("Fill In: ", displayWidth*.2, displayHeight*.35);
+        circle(displayWidth*.4, displayHeight*.55, displayWidth*.06); //.23 width
+        textAlign(CENTER, CENTER);
+        text("Stars   Earned!", displayWidth*.4, displayHeight*.45);
+        text("Main Menu", displayWidth*.27, displayHeight*.7)
+        text("Next Level", displayWidth*.52, displayHeight*.7)
     }
      
 

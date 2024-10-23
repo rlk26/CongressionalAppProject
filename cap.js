@@ -10,7 +10,7 @@ var leftWalkingGIF, rightWalkingGIF, upWalkingGIF, downWalkingGIF, placeHolderGI
 var moonbg;
 let font;
 
-let attempts;
+//let attempts;
 
 function preload(){
     //load image
@@ -47,7 +47,7 @@ function setup() {
     gs0 = new Gamestate(null, null, null); Gamestates.push(gs0);
     gs1 = new Gamestate(level1Grid, moonbg, 4); Gamestates.push(gs1); //grid, background, lineGoal
     
-    attempts = 0;
+    //attempts = 0;
    
     
 }
@@ -92,9 +92,9 @@ function keyPressed(){
         if(cgs.grid.gridPos.x!=cgs.grid.gridStart.x || cgs.grid.gridPos.y!=cgs.grid.gridStart.y){
             cgs.grid.gridPos = cgs.grid.gridStart.copy();
         } else console.log("you haven't moved");
-        attempts += 1;
+        cgs.attempts += 1;
         
-        console.log("attempt: " + attempts);
+        console.log("attempt: " + cgs.attempts);
     }
 }
 
