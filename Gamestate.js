@@ -1,7 +1,5 @@
-//let font; 
 class Gamestate{
      constructor(grid, bg, lineGoal){
-         //font = loadFont('text.ttf');
          this.pos = createVector(0, 0); //gridPos
          this.grid = grid; //copies grid from constructor to class
          
