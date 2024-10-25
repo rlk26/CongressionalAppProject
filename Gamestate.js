@@ -136,60 +136,75 @@ class Gamestate{
 }
      //function to immediately abort test
      
-     checkError(words){
-          for(let i = 0; i < words.length; i++){
-            let currentLine = words[i];
-            let s = currentLine.substring(currentLine.length-1, currentLine.length);
-            if(s !== ';'){
-                this.errorMsg = "SEMI COLON ERROR";
-                this.error = true;
-            }
-            let a = words[i].split("\"");
-            this.moves[i] = a[1];
-              
-        } 
-        if(!this.error){
-            for(let i = 0; i < words.length; i++){
-                let currentLine = words[i];
-                let lParen = 0;
-                let rParen = 0;
-                for(let i = 0; i<currentLine.length; i++){
-                    if(currentLine.substring(i-1, i)==="(") lParen++;
-                    if(currentLine.substring(i-1, i)===")") rParen++;
-                }         
-                if(lParen !== 1 || rParen !== 1){
-                   this.errorMsg = "PARENTHESIS ERROR";
-                   this.error = true;
-                } 
-            }
-        } 
-        
-         
-        if(!this.error){
-            for(let i = 0; i < words.length; i++){
-                let currentLine = words[i];
-                let quote = 0;
-                for(let i = 0; i<currentLine.length; i++){
-                    if(currentLine.substring(i-1, i)=== '"') quote++;
-                }         
-                if(quote !== 2){
-                    this.errorMsg = "QUOTE ERROR";
-                      console.log(this.errorMsg);
-                    this.error = true;
-                } 
-            }
-        } else this.error = false;
-         
-        
-        
-        if(this.error === false){
-           this.moving = true;
+    checkError(words) {
+    this.error = false;
+    this.errorMsg = "";
+    this.moves = [];
+
+    // Check for semicolon at the end of each line
+    for (let i = 0; i < words.length; i++) {
+        let currentLine = words[i].trim(); // Trim white space
+        if (currentLine.charAt(currentLine.length - 1) !== ';') {
+            this.errorMsg = "SEMI COLON ERROR";
+            this.error = true;
+            console.log(this.errorMsg);
+            return;
         }
-    
-        //reset code
-        words = [];
-         
-     }
+
+        // Get the quoted part of the line (if any)
+        let a = currentLine.split("\"");
+        if (a.length > 1) {
+            this.moves[i] = a[1];
+        }
+    }
+
+    // Check for balanced parentheses
+    if (!this.error) {
+        for (let i = 0; i < words.length; i++) {
+            let currentLine = words[i];
+            let lParen = 0, rParen = 0;
+
+            for (let j = 0; j < currentLine.length; j++) {
+                if (currentLine[j] === "(") lParen++;
+                if (currentLine[j] === ")") rParen++;
+            }
+
+            if (lParen !== 0 ||  rParen == 0) {
+                this.errorMsg = "PARENTHESIS ERROR";
+                this.error = true;
+                console.log(this.errorMsg);
+                return;
+            }
+        }
+    }
+
+    // Check for even number of quotes in each line
+    if (!this.error) {
+        for (let i = 0; i < words.length; i++) {
+            let currentLine = words[i];
+            let quote = 0;
+
+            for (let j = 0; j < currentLine.length; j++) {
+                if (currentLine[j] === '"') quote++;
+            }
+
+            if (quote % 2 !== 0) {
+                this.errorMsg = "QUOTE ERROR";
+                this.error = true;
+                console.log(this.errorMsg);
+                return;
+            }
+        }
+    }
+
+    // If no errors, set moving to true
+    if (!this.error) {
+        this.moving = true;
+    }
+
+    // Reset words array after processing
+    words = [];
+}
      
      getAreaValue(){
          return this.area.elt.value; // this isn't storing WHAT TO WORK ON 
