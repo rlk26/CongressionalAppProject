@@ -136,15 +136,60 @@ class Gamestate{
 }
      //function to immediately abort test
      
-checkError(words) {
-    /*this.error = false;
-    this.errorMsg = "";
-    this.moves = [];
-    int colon = 0; 
-    let lParenCount = 0;
-    let rParenCount = 0;
+    checkError(words) {
+    for(let i = 0; i < words.length; i++){
+        let currentLine = words[i];
+        let s = currentLine.substring(currentLine.length-1, currentLine.length);
+        if(s !== ';'){
+            this.errorMsg = "SEMI COLON ERROR";
+            this.error = true;
+        }
+        let a = words[i].split("\"");
+            this.moves[i] = a[1];
+              
+        } 
+        if(!this.error){
+            for(let i = 0; i < words.length; i++){
+                let currentLine = words[i];
+                let lParen = 0;
+                let rParen = 0;
+                for(let i = 0; i<currentLine.length; i++){
+                    if(currentLine.substring(i-1, i)==="(") lParen++;
+                    if(currentLine.substring(i-1, i)===")") rParen++;
+                }         
+                if(lParen !== 1 || rParen !== 1){
+                   this.errorMsg = "PARENTHESIS ERROR";
+                   this.error = true;
+                }
+            }
+        }  else this.error = false;
+         
+        
+        
+        if(this.error === false){
+           this.moving = true;
+        }
+    
+        //reset code
+        words = [];
+         
+     }
+        
+         
+        if(!this.error){
+            for(let i = 0; i < words.length; i++){
+                let currentLine = words[i];
+                let quote = 0;
+                for(let i = 0; i<currentLine.length; i++){
+                    if(currentLine.substring(i-1, i)=== '"') quote++;
+                }         
+                if(quote !== 2){
+                    this.errorMsg = "QUOTE ERROR";
+                      console.log(this.errorMsg);
+                    this.error = true;
+                } 
+        // Check for semicolon
 
-    // Check for semicolon
     for (let i = 0; i < words.length; i++) {
         
         if (words[i] == ';') colon++;
@@ -165,7 +210,6 @@ checkError(words) {
             console.log(this.errorMsg);
             return;
         }
-
 
 
     if (!this.error) {
