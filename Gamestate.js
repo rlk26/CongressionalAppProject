@@ -136,49 +136,50 @@ class Gamestate{
 }
      //function to immediately abort test
      
-    checkError(words) {
+checkError(words) {
     this.error = false;
     this.errorMsg = "";
     this.moves = [];
+    let lParenCount = 0;
+    let rParenCount = 0;
 
-    // Check for semicolon at the end of each line
+    // Check for semicolon
     for (let i = 0; i < words.length; i++) {
         let currentLine = words[i].trim(); // Trim white space
-        if (currentLine.charAt(currentLine.length - 1) !== ';') {
+        
+
+        if (currentLine.length > 0 && currentLine.charAt(currentLine.length - 1) !== ';') {
             this.errorMsg = "SEMI COLON ERROR";
             this.error = true;
             console.log(this.errorMsg);
             return;
         }
 
-        // Get the quoted part of the line (if any)
+        // Split
         let a = currentLine.split("\"");
         if (a.length > 1) {
             this.moves[i] = a[1];
         }
-    }
 
-    // Check for balanced parentheses
-    if (!this.error) {
-        for (let i = 0; i < words.length; i++) {
-            let currentLine = words[i];
-            let lParen = 0, rParen = 0;
-
-            for (let j = 0; j < currentLine.length; j++) {
-                if (currentLine[j] === "(") lParen++;
-                if (currentLine[j] === ")") rParen++;
-            }
-
-            if (lParen !== 0 ||  rParen == 0) {
-                this.errorMsg = "PARENTHESIS ERROR";
-                this.error = true;
-                console.log(this.errorMsg);
-                return;
-            }
+        //  Parenthesis
+        for (let j = 0; j < currentLine.length; j++) {
+            if (currentLine[j] === "(") lParenCount++;
+            if (currentLine[j] === ")") rParenCount++;
         }
     }
 
-    // Check for even number of quotes in each line
+    // Parenthesis
+    if (lParenCount !== rParenCount || lParenCount != 1) {
+        this.errorMsg = "PARENTHESIS ERROR";
+        this.error = true;
+        console.log(this.errorMsg);
+        return;
+    }
+
+    this.errorMsg = "No errors found";
+    console.log(this.errorMsg);
+
+
     if (!this.error) {
         for (let i = 0; i < words.length; i++) {
             let currentLine = words[i];
