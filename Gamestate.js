@@ -140,61 +140,44 @@ checkError(words) {
     this.error = false;
     this.errorMsg = "";
     this.moves = [];
+    int colon = 0; 
     let lParenCount = 0;
     let rParenCount = 0;
 
     // Check for semicolon
     for (let i = 0; i < words.length; i++) {
-        let currentLine = words[i].trim(); // Trim white space
         
+        if (words[i] == ';') colon++;
+        if (currentLine[j] === "(") lParenCount++;
+        if (currentLine[j] === ")") rParenCount++;
+    }
+    if (colon != 1){
+        this.erroMsg = "SEMICOLON ERROR;"
+        this.error = true;
+        console.log(this.errorMsg);
+        return:
+    }
 
-        if (currentLine.length > 0 && currentLine.charAt(currentLine.length - 1) !== ';') {
-            this.errorMsg = "SEMI COLON ERROR";
+        //  Parenthesis
+        if (lParenCount != 1 || rParenCount != 1){
+            this.errorMsg = "PARENTHESIS ERROR";
             this.error = true;
             console.log(this.errorMsg);
             return;
         }
 
-        // Split
-        let a = currentLine.split("\"");
-        if (a.length > 1) {
-            this.moves[i] = a[1];
-        }
-
-        //  Parenthesis
-        for (let j = 0; j < currentLine.length; j++) {
-            if (currentLine[j] === "(") lParenCount++;
-            if (currentLine[j] === ")") rParenCount++;
-        }
-    }
-
-    // Parenthesis
-    if (lParenCount !== rParenCount || lParenCount != 1) {
-        this.errorMsg = "PARENTHESIS ERROR";
-        this.error = true;
-        console.log(this.errorMsg);
-        return;
-    }
-
-    this.errorMsg = "No errors found";
-    console.log(this.errorMsg);
 
 
     if (!this.error) {
         for (let i = 0; i < words.length; i++) {
-            let currentLine = words[i];
-            let quote = 0;
-
-            for (let j = 0; j < currentLine.length; j++) {
-                if (currentLine[j] === '"') quote++;
+                if (words[i] === '"') quote++;
             }
 
-            if (quote % 2 !== 0) {
-                this.errorMsg = "QUOTE ERROR";
-                this.error = true;
-                console.log(this.errorMsg);
-                return;
-            }
+        if (quote !== 2) {
+            this.errorMsg = "QUOTE ERROR";
+            this.error = true;
+             console.log(this.errorMsg);
+            return;
         }
     }
 
