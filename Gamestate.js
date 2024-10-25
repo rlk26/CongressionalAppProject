@@ -148,8 +148,8 @@ checkError(words) {
     for (let i = 0; i < words.length; i++) {
         
         if (words[i] == ';') colon++;
-        if (words[j] === "(") lParenCount++;
-        if (words[j] === ")") rParenCount++;
+        if (words[i] === "(") lParenCount++;
+        if (words[i] === ")") rParenCount++;
     }
     if (colon != 1){
         this.erroMsg = "SEMICOLON ERROR;"
