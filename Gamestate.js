@@ -137,7 +137,7 @@ class Gamestate{
      //function to immediately abort test
      
 checkError(words) {
-    this.error = false;
+    /*this.error = false;
     this.errorMsg = "";
     this.moves = [];
     int colon = 0; 
@@ -179,7 +179,7 @@ checkError(words) {
              console.log(this.errorMsg);
             return;
         }
-    }
+    }*/
 
     // If no errors, set moving to true
     if (!this.error) {
@@ -187,7 +187,7 @@ checkError(words) {
     }
 
     // Reset words array after processing
-    words = [];
+   // words = [];
 }
      
      getAreaValue(){
