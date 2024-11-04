@@ -32,6 +32,13 @@ class Gamestate{
         this.moves = [];
     }
      
+    stop() {
+        this.moving = false;
+        this.vel.x = 0;
+        this.vel.y = 0;
+        this.movementTime = 0;
+        this.moves = [];
+    }
     display() {
         image(this.bg, width/2, height/2);
         if(this.grid!=null){ //if the gamestate has a grid, display the grid
