@@ -99,10 +99,12 @@ class Gamestate{
      
     movement(){
     if(this.error === true) {
+       console.log("not moving");
        text(this.errorMsg, displayWidth*.4, displayHeight/30);
     }
     if(this.error === false && this.movementTime === 0){
         if(this.moves.length > 0){
+            console.log("moving");
             this.movementTime = 40;
             if(this.moves[0] === "right" && this.canYouMove("right", this.grid)){
                 placeHolderGIF = rightWalkingGIF;
@@ -144,6 +146,10 @@ class Gamestate{
      //function to immediately abort test
      
     checkError(words) {
+        this.error = false;
+        this.moving = true;
+        this.movementTime = 0;
+      
     for(let i = 0; i < words.length; i++){
         let currentLine = words[i];
         let s = currentLine.substring(currentLine.length-1, currentLine.length);
@@ -151,10 +157,10 @@ class Gamestate{
             this.errorMsg = "SEMI COLON ERROR";
             this.error = true;
         }
-        let a = words[i].split("\"");
+            let a = words[i].split("\"");
             this.moves[i] = a[1];
-              
         } 
+        
         if(!this.error){
             for(let i = 0; i < words.length; i++){
                 let currentLine = words[i];
@@ -169,19 +175,9 @@ class Gamestate{
                    this.error = true;
                 }
             }
-        }  else this.error = false;
-         
-        
-        
-        if(this.error === false){
-           this.moving = true;
         }
-    
-        //reset code
-        words = [];
-         
         
-         
+       
         if(!this.error){
             for(let i = 0; i < words.length; i++){
                 let currentLine = words[i];
@@ -191,55 +187,20 @@ class Gamestate{
                 }         
                 if(quote !== 2){
                     this.errorMsg = "QUOTE ERROR";
-                      console.log(this.errorMsg);
+                    console.log(this.errorMsg);
                     this.error = true;
                 }
             }
         }
-        // Check for semicolon
-
-    for (let i = 0; i < words.length; i++) {
         
-        if (words[i] == ';') colon++;
-        if (words[i] === "(") lParenCount++;
-        if (words[i] === ")") rParenCount++;
-    }
-    if (colon != 1){
-        this.erroMsg = "SEMICOLON ERROR;"
-        this.error = true;
-        console.log(this.errorMsg);
-    }
-
-        //  Parenthesis
-        if (lParenCount != 1 || rParenCount != 1){
-            this.errorMsg = "PARENTHESIS ERROR";
-            this.error = true;
-            console.log(this.errorMsg);
-        }
-
-
-    if (!this.error) {
-        for (let i = 0; i < words.length; i++) {
-                if (words[i] === '"') quote++;
-            }
-
-        if (quote !== 2) {
-            this.errorMsg = "QUOTE ERROR";
-            this.error = true;
-             console.log(this.errorMsg);
+        
+        if(this.error == false) this.moving = true;
+        else this.moving = false;
     
-        }
+        //reset code
+        words = [];
+        
     }
-
-    // If no errors, set moving to true
-    if (!this.error) {
-        this.moving = true;
-    }
-
-    // Reset words array after processing
-   // words = [];
-}
-            
      
      getAreaValue(){
          return this.area.elt.value; // this isn't storing WHAT TO WORK ON 
