@@ -208,7 +208,6 @@ class Gamestate{
         this.erroMsg = "SEMICOLON ERROR;"
         this.error = true;
         console.log(this.errorMsg);
-        return:
     }
 
         //  Parenthesis
@@ -216,7 +215,6 @@ class Gamestate{
             this.errorMsg = "PARENTHESIS ERROR";
             this.error = true;
             console.log(this.errorMsg);
-            return;
         }
 
 
@@ -229,7 +227,7 @@ class Gamestate{
             this.errorMsg = "QUOTE ERROR";
             this.error = true;
              console.log(this.errorMsg);
-            return;
+    
         }
     }
 
