@@ -180,7 +180,6 @@ class Gamestate{
         //reset code
         words = [];
          
-     }
         
          
         if(!this.error){
@@ -194,7 +193,9 @@ class Gamestate{
                     this.errorMsg = "QUOTE ERROR";
                       console.log(this.errorMsg);
                     this.error = true;
-                } 
+                }
+            }
+        }
         // Check for semicolon
 
     for (let i = 0; i < words.length; i++) {
@@ -230,7 +231,7 @@ class Gamestate{
              console.log(this.errorMsg);
             return;
         }
-    }*/
+    }
 
     // If no errors, set moving to true
     if (!this.error) {
@@ -240,6 +241,7 @@ class Gamestate{
     // Reset words array after processing
    // words = [];
 }
+            
      
      getAreaValue(){
          return this.area.elt.value; // this isn't storing WHAT TO WORK ON 
