@@ -4,7 +4,9 @@ class Grid{
         this.gridArray = [];
         this.removeArray = removeArray;
         this.cols = Math.floor((displayWidth / 2 - displayWidth / 20) / this.gridSize);
-        this.rows = Math.floor((displayHeight - displayHeight / 8) / this.gridSize);
+        //this.rows = Math.floor((displayHeight - displayHeight / 8) / this.gridSize);
+        this.cols = 9;
+        this.rows = 6;
         this.goal = goal;
         
         //need to do .copy() to save value instead of just assign variable

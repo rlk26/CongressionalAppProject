@@ -4,7 +4,7 @@ let words = [];
 let Gamestates, gs0, gs1;
 let currentGamestate = 0;
 
-let level1Grid;
+let level1Grid, level1GridRemove;
 
 var leftWalkingGIF, rightWalkingGIF, upWalkingGIF, downWalkingGIF, placeHolderGIF;
 var moonbg;
@@ -32,7 +32,8 @@ function setup() {
     textFont(font);
 
     level1Goal = createVector(4, 0);
-    level1Grid = new Grid([], level1Goal, createVector(displayWidth/20,displayHeight/8), createVector(0, 0)); //remove array, goal, and start position, gridStart
+    level1GridRemove = [];
+    level1Grid = new Grid(level1GridRemove, level1Goal, createVector(displayWidth/20,displayHeight/8), createVector(0, 0)); //remove array, goal, and start position, gridStart
     
     //resize all variables
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
