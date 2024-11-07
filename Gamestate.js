@@ -30,6 +30,7 @@ class Gamestate{
         
         this.attempts = 0;
         this.moves = [];
+        this.endMovesLength = 0;
     }
      
     stop() {
@@ -38,6 +39,8 @@ class Gamestate{
         this.vel.x = 0;
         this.vel.y = 0;
         this.movementTime = 0;
+        //this.endMovesLength = this.moves.length;
+        console.log("end" + this.endMovesLength);
         this.moves = [];
     }
     display() {
@@ -82,14 +85,18 @@ class Gamestate{
         fill(255, 150);
         rect(displayWidth*.4, displayHeight*.45, displayWidth/2, displayHeight*.7);
         textSize(displayHeight/12);
-        textAlign(CENTER, CENTER);
+        textAlign(CENTER);
         fill(0);
         text("Level Complete", displayWidth*.4, displayHeight*.15);
-        textAlign(LEFT);
         textSize(50);
-        text("Attempts: " + this.attempts, displayWidth*.2, displayHeight*.25);
-        text("Fill In: ", displayWidth*.2, displayHeight*.35);
-        circle(displayWidth*.4, displayHeight*.55, displayWidth*.06); //.23 width
+        text("You're out of this world!", displayWidth*.4, displayHeight*.25);
+        textAlign(LEFT);
+        text("Attempts: " + this.attempts, displayWidth*.2, displayHeight*.35);
+        circle(displayWidth*.25, displayHeight*.55, displayWidth*.06); //.23 width
+        
+        if(this.attempts<5 || this.endMovesLength<=this.lineGoal) circle(displayWidth*.4, displayHeight*.55, displayWidth*.06); //.23 width
+        if(this.attempts<5 && this.endMovesLength<=this.lineGoal) circle(displayWidth*.55, displayHeight*.55, displayWidth*.06); //.23 width
+        
         textAlign(CENTER, CENTER);
         text("Stars   Earned!", displayWidth*.4, displayHeight*.45);
         text("Main Menu", displayWidth*.27, displayHeight*.7)
@@ -160,6 +167,7 @@ class Gamestate{
         }
             let a = words[i].split("\"");
             this.moves[i] = a[1];
+            this.endMovesLength = this.moves.length;
         } 
         
         if(!this.error){
