@@ -50,18 +50,20 @@ class Grid{
      removeElements(){
         if(this.removeArray!== []){
         for (let i = 0; i < this.removeArray.length; i++) {
-            let removing = this.removeArray[i];
+        for (let j = 0; j < this.removeArray[i].length; j++) {
+            let removing = this.removeArray[i][j];
             //converting to grid positions
-            let x = removing.x;
-            let y = removing.y;
+         //  let x = removing.x;
+         //  let y = removing.y;
           
-            if (this.gridArray[y][x] && this.removeArray[y][x] === true){
-                 this.gridArray[y][x] = null;
+            if (this.removeArray[i][j] === 0){
+                 this.gridArray[i][j] = null;
                 }
                 
             }
     
         }
+     }
      }
      
     checkGoal(moving){

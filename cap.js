@@ -35,7 +35,7 @@ function setup() {
     textFont(font);
 
     level1Goal = createVector(4, 0);
-    level1GridRemove = [];
+    level1GridRemove = [[0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [1,1,1,1,1,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0]];
     level1Grid = new Grid(level1GridRemove, level1Goal, createVector(displayWidth/20,displayHeight/8), createVector(0, 0)); //remove array, goal, and start position, gridStart
     
     //resize all variables
