@@ -92,10 +92,11 @@ class Gamestate{
         text("You're out of this world!", displayWidth*.4, displayHeight*.25);
         textAlign(LEFT);
         text("Attempts: " + this.attempts, displayWidth*.2, displayHeight*.35);
-        circle(displayWidth*.25, displayHeight*.55, displayWidth*.06); //.23 width
+        //circle(displayWidth*.25, displayHeight*.55, displayWidth*.06); //.23 width
+        image(silverStar, displayWidth*.25, displayHeight*.55);
         
-        if(this.attempts<5 || this.endMovesLength<=this.lineGoal) circle(displayWidth*.4, displayHeight*.55, displayWidth*.06); //.23 width
-        if(this.attempts<5 && this.endMovesLength<=this.lineGoal) circle(displayWidth*.55, displayHeight*.55, displayWidth*.06); //.23 width
+        if(this.attempts<5 || this.endMovesLength<=this.lineGoal) image(silverStar, displayWidth*.4, displayHeight*.55);
+        if(this.attempts<5 && this.endMovesLength<=this.lineGoal) image(silverStar, displayWidth*.55, displayHeight*.55); //.23 width
         
         textAlign(CENTER, CENTER);
         text("Stars   Earned!", displayWidth*.4, displayHeight*.45);

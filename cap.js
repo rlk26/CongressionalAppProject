@@ -7,6 +7,7 @@ let currentGamestate = 0;
 let level1Grid, level1GridRemove;
 
 var leftWalkingGIF, rightWalkingGIF, upWalkingGIF, downWalkingGIF, placeHolderGIF;
+var silverStar;
 var moonbg;
 let font;
 
@@ -19,6 +20,8 @@ function preload(){
     upWalkingGIF = loadImage('rightwalking.gif');
     downWalkingGIF = loadImage('frontwalking.gif');
     placeHolderGIF = loadImage('leftwalking.gif');
+    
+    silverStar = loadImage('silverstar.png');
     
     moonbg = loadImage('moonbg.png');
     font = loadFont('text.ttf');
@@ -41,6 +44,8 @@ function setup() {
     upWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     downWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     moonbg.resize(displayWidth*.7, displayHeight);
+    
+    silverStar.resize(displayWidth*.1, displayWidth*.1);
 
     
     //make new gamestate
