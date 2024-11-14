@@ -24,7 +24,7 @@ function preload(){
     silverStar = loadImage('silverstar.png');
     
     moonbg = loadImage('moonbg.png');
-    font = loadFont('text.ttf');
+    font = loadFont('Napoli.ttf');
 }
 
 function setup() {
