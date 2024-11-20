@@ -14,7 +14,6 @@ class Gamestate{
 
         this.textBoxDisplay(); //display textBox
         //this.area.style.display = 'none';
-
          
         this.bg = bg; //copies background from constructor to class
         if(bg!=null) this.bg.resize(displayWidth, displayHeight); //if there is a background, resize it
@@ -34,7 +33,6 @@ class Gamestate{
     }
      
     stop() {
-        console.log
         this.moving = false;
         this.vel.x = 0;
         this.vel.y = 0;
@@ -242,8 +240,7 @@ class Gamestate{
     if(direction==="right"){
         if(g.gridPos.x+1<g.gridArray[g.gridPos.y].length && g.gridArray[g.gridPos.y][g.gridPos.x+1]){
            return true;
-        }
-          else {
+        } else {
               this.stop();
               return false;
               

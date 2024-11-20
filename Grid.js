@@ -10,6 +10,8 @@ class Grid{
         this.goal = goal;
         
         //need to do .copy() to save value instead of just assign variable
+        //this.startPos = createVector(displayWidth / 20 + startPos.x * this.gridSize, displayHeight/8 + startPos.y*this.gridSize);
+            
         this.startPos = startPos.copy();
         this.gridPos = gridPos.copy();
         this.gridStart = gridPos.copy();
