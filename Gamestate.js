@@ -59,10 +59,10 @@ class Gamestate{
             console.log("null?" + this.grid);
             this.area.style.display = 'none';
         }
-        fill(0);
+        fill(255);
         textSize(displayHeight/12);
         textAlign(CENTER, CENTER);
-        text("Planet" + planetNumName, width/4, height/12);
+        text("Planet" + this.planetNumName, width/4, height/12);
        
     }  
      
