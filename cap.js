@@ -50,9 +50,9 @@ function setup() {
     
     //make new gamestate
     Gamestates = [];
-    gs0 = new Gamestate(null, null, null); Gamestates.push(gs0);
-    gs1 = new Gamestate(level1Grid, moonbg, 4); Gamestates.push(gs1); //grid, background, lineGoal
-    
+    gs0 = new Gamestate(null, null, null, null); Gamestates.push(gs0);
+    gs1 = new Gamestate(level1Grid, moonbg, 4, "1: Moon"); Gamestates.push(gs1); //grid, background, lineGoal, level number and name
+     console.log("Planet name:", gs1.planetNumName);
     //attempts = 0;
    
     
