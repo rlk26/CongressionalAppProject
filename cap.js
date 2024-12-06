@@ -63,7 +63,12 @@ function draw() {
     let cgs = Gamestates[currentGamestate];
    
     if(currentGamestate===0) cgs.title();
-    if(currentGamestate===1) {cgs.display(); cgs.movement();}
+    if(currentGamestate===1) {
+        if(cgs.displayInfo) cgs.info();
+        else {
+          cgs.display(); cgs.movement();
+        }
+    }
     if(currentGamestate===2) cgs.completion();
     
     repaint();
