@@ -16,7 +16,6 @@ class Gamestate{
 
         this.textBoxDisplay(); //display textBox
         //this.area.style.display = 'none';
-
          
         this.bg = bg; //copies background from constructor to class
         if(bg!=null) this.bg.resize(displayWidth, displayHeight); //if there is a background, resize it
@@ -33,11 +32,11 @@ class Gamestate{
         this.attempts = 0;
         this.moves = [];
         this.endMovesLength = 0;
-         
+
+        this.displayInfo = false;
     }
      
     stop() {
-        console.log
         this.moving = false;
         this.vel.x = 0;
         this.vel.y = 0;
@@ -66,6 +65,24 @@ class Gamestate{
        
     }  
      
+    info(){
+        rectMode(CENTER);
+        fill(255, 150);
+        rect(displayWidth*.4, displayHeight*.45, displayWidth/2, displayHeight*.7);
+        textSize(displayHeight/12);
+        textAlign(CENTER);
+        fill(0);
+        textSize(20);
+        text("    Welcome to Planet Program! You've been tasked with a mission to          explore the galaxy, using the Java coding language to move around    new terrain.", width*.4, height*.4, 700, 500);
+        
+         text("Time to teach you some things about Java! For the first level, the function you will use is move(“direction”). To move in a certain direction, replace direction with either right, left, up, or down (ex: move(“right”)).", width*.4, height*.5, 700, 500);
+        
+         text("Finally, for Java, all standalone lines must end in a semi-colon. So if you’re moving up, the code would be: move(“up”);", width*.4, height*.6, 700, 500);
+         
+         text("If you need to access this menu again, click the Tab key. To test your code, click the Option key. Happy coding!", width*.4, height*.68, 700, 500);
+           
+    }  
+    
     textBoxDisplay(){
         fill(255);
         this.area.elt.placeholder = 'CODE HERE OR ELSE';
@@ -250,8 +267,7 @@ class Gamestate{
     if(direction==="right"){
         if(g.gridPos.x+1<g.gridArray[g.gridPos.y].length && g.gridArray[g.gridPos.y][g.gridPos.x+1]){
            return true;
-        }
-          else {
+        } else {
               this.stop();
               return false;
               
@@ -260,6 +276,7 @@ class Gamestate{
     } 
 
 }
+
 
 
 

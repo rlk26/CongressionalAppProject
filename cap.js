@@ -34,9 +34,9 @@ function setup() {
     
     textFont(font);
 
-    level1Goal = createVector(4, 0);
+    level1Goal = createVector(4, 3); //x, y
     level1GridRemove = [[0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [1,1,1,1,1,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0]];
-    level1Grid = new Grid(level1GridRemove, level1Goal, createVector(displayWidth/20,displayHeight/8), createVector(0, 0)); //remove array, goal, and start position, gridStart
+    level1Grid = new Grid(level1GridRemove, level1Goal, createVector(displayWidth/20,displayHeight/2), createVector(0, 3)); //remove array, goal, and start position, gridStart
     
     //resize all variables
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
@@ -63,7 +63,12 @@ function draw() {
     let cgs = Gamestates[currentGamestate];
    
     if(currentGamestate===0) cgs.title();
-    if(currentGamestate===1) {cgs.display(); cgs.movement();}
+    if(currentGamestate===1) {
+        if(cgs.displayInfo) cgs.info();
+        else {
+          cgs.display(); cgs.movement();
+        }
+    }
     if(currentGamestate===2) cgs.completion();
     
     repaint();
@@ -109,7 +114,11 @@ function mouseClicked(){
     if (currentGamestate === 0 && mouseX > displayWidth/2 - displayWidth/12 && mouseX < displayWidth/2 + displayWidth/12 && mouseY > displayHeight/2 - displayHeight/16 && mouseY < displayHeight/2 + displayHeight/16){
         currentGamestate += 1;
         textAlign(LEFT, TOP);
-    }
+    } else if(currentGamestate === 1 && mouseX>displayWidth*600/1440 && mouseX<displayWidth*900/1440 && mouseY>displayHeight*600/900 && mouseY<displayHeight*700/900){
+        text("Next Level", width/2, height/2); 
+        console.log("nextgs");
+        //currentGamestate +=1;
+    }                         
 }
 
 //movement function
