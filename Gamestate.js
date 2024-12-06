@@ -1,7 +1,9 @@
 class Gamestate{
-     constructor(grid, bg, lineGoal){
+     constructor(grid, bg, lineGoal, planetNumName){
+         console.log("planetNumName received:", planetNumName);
          this.pos = createVector(0, 0); //gridPos
          this.grid = grid; //copies grid from constructor to class
+          this.planetNumName = planetNumName;
          
          this.area = createElement('textarea'); //creates a text area
          
@@ -30,6 +32,7 @@ class Gamestate{
         this.attempts = 0;
         this.moves = [];
         this.endMovesLength = 0;
+         
     }
      
     stop() {
@@ -53,7 +56,12 @@ class Gamestate{
         } else {
             console.log("null?" + this.grid);
             this.area.style.display = 'none';
-        }     
+        }
+        fill(255);
+        textSize(displayHeight/12);
+        textAlign(CENTER, CENTER);
+        text("Planet" + this.planetNumName, width/4, height/12);
+       
     }  
      
     textBoxDisplay(){
