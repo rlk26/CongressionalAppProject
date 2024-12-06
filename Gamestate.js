@@ -60,9 +60,9 @@ class Gamestate{
             this.area.style.display = 'none';
         }
         fill(255);
-        textSize(displayHeight/12);
+        textSize(displayHeight/14);
         textAlign(CENTER, CENTER);
-        text("Planet" + this.planetNumName, width/4, height/12);
+        text("Planet" + this.planetNumName, width/4-100, height/14);
        
     }  
      
