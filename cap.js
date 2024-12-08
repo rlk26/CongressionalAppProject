@@ -33,13 +33,13 @@ function setup() {
     imageMode(CENTER);
     
     textFont(font);
-
+    
+    //level 1 grid
     level1Goal = createVector(4, 3); //x, y
     level1GridRemove = [[0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [1,1,1,1,1,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0]];
     level1Grid = new Grid(level1GridRemove, level1Goal, createVector(displayWidth/20,displayHeight/2), createVector(0, 3)); //remove array, goal, and start position, gridStart
     
-    
-    //CHANGE THIS TO LEVEL TWO STUFF
+    //level 2 grid
     level2Goal = createVector(5, 4); //x, y
     level2GridRemove = [[0,0,0,0,0,0,0,0,0], [1,1,1,0,0,0,0,0,0], [1,0,1,0,0,0,0,0,0], [1,0,1,0,0,0,0,0,0], [0,0,1,1,1,1,0,0,0], [0,0,0,0,0,0,0,0,0]];
     level2Grid = new Grid(level2GridRemove, level2Goal, createVector(displayWidth/20,displayHeight/2), createVector(0, 3)); //remove array, goal, and start position, gridStart
@@ -59,7 +59,7 @@ function setup() {
     gs0 = new Gamestate(null, null, null, null); Gamestates.push(gs0);
     gs1 = new Gamestate(level1Grid, moonbg, 4, "1: Moon"); Gamestates.push(gs1); //grid, background, lineGoal, level number and name
     
-    //don't know what line goal should be yet
+    //btw i put the moon background for the image here as a pla
     gs2 = new Gamestate(level2Grid, moonbg, 10, "2: Mars");
     Gamestates.push(gs2);
     
