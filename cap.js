@@ -38,6 +38,12 @@ function setup() {
     level1GridRemove = [[0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0], [1,1,1,1,1,0,0,0,0], [0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0]];
     level1Grid = new Grid(level1GridRemove, level1Goal, createVector(displayWidth/20,displayHeight/2), createVector(0, 3)); //remove array, goal, and start position, gridStart
     
+    
+    //CHANGE THIS TO LEVEL TWO STUFF
+    level2Goal = createVector(5, 4); //x, y
+    level2GridRemove = [[0,0,0,0,0,0,0,0,0], [1,1,1,0,0,0,0,0,0], [1,0,1,0,0,0,0,0,0], [1,0,1,0,0,0,0,0,0], [0,0,1,1,1,1,0,0,0], [0,0,0,0,0,0,0,0,0]];
+    level2Grid = new Grid(level2GridRemove, level2Goal, createVector(displayWidth/20,displayHeight/2), createVector(0, 3)); //remove array, goal, and start position, gridStart
+    
     //resize all variables
     leftWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
     rightWalkingGIF.resize(displayWidth*.05, displayHeight*.13);
@@ -52,6 +58,11 @@ function setup() {
     Gamestates = [];
     gs0 = new Gamestate(null, null, null, null); Gamestates.push(gs0);
     gs1 = new Gamestate(level1Grid, moonbg, 4, "1: Moon"); Gamestates.push(gs1); //grid, background, lineGoal, level number and name
+    
+    //don't know what line goal should be yet
+    gs2 = new Gamestate(level2Grid, moonbg, 10, "2: Mars");
+    Gamestates.push(gs2);
+    
      console.log("Planet name:", gs1.planetNumName);
     //attempts = 0;
    
@@ -60,6 +71,8 @@ function setup() {
 
 
 function draw() {
+    console.log(currentGamestate);
+    
     let cgs = Gamestates[currentGamestate];
    
     if(currentGamestate===0) cgs.title();
@@ -69,7 +82,12 @@ function draw() {
           cgs.display(); cgs.movement();
         }
     }
-    if(currentGamestate===2) cgs.completion();
+    if(currentGamestate===2){
+        cgs.display();
+        cgs.movement();
+    } 
+    
+    if(currentGamestate===3) cgs.completion();
     
     repaint();
     
@@ -117,7 +135,7 @@ function mouseClicked(){
     } else if(currentGamestate === 1 && mouseX>displayWidth*600/1440 && mouseX<displayWidth*900/1440 && mouseY>displayHeight*600/900 && mouseY<displayHeight*700/900){
         text("Next Level", width/2, height/2); 
         console.log("nextgs");
-        //currentGamestate +=1;
+        currentGamestate +=1;
     }                         
 }
 
